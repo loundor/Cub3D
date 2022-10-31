@@ -1,0 +1,46 @@
+LOSTSOUL{
+	id = 6;
+	folder = "../../DOOMEXP/IMG/CARACTERE/"
+	rotate = 5; // number of rotation img (5 means 6 7 8 is a mirror of 2 3 4)
+	name = "LOSTSOUL";
+	speed = 0.8;
+	health = 60;
+	attack = 41;
+	a_type = 4; // 0 = head to head 1 = bullet 2=red fire 3=violet fire 4 = self 5=green fire 6=rocket
+	fov = 72;
+	view = 200; // Distance of view
+
+	walk = 2;
+// [a][r][x][y]
+// a = file; r = rotation angle %45; x = decal x; y = decal
+	w[0] = "SKULAx.xpm"; // File name
+		[0] = 20,50 ;[1] = , ;[2] = , ;[3] = , ;[4] = 21,48 ;[5] = 15,47 ;[6] = 14,54 ;[7] = 13,53 ;
+	w[1] = "SKULBx.xpm";
+		[0] = 20,49 ;[1] = , ;[2] = , ;[3] = , ;[4] = 21,48 ;[5] = 15,53 ;[6] = 14,54 ;[7] = 13,53 ;
+
+	fire = 2;
+	f[0] = "SKULCx.xpm";
+		[0] = 23,47 ;[1] = , ;[2] = , ;[3] = , ;[4] = 20,30 ;[5] = 32,37 ;[6] = 33,36 ;[7] = 24,36 ;
+	f[1] = "SKULDx.xpm";
+		[0] = 23,46 ;[1] = , ;[2] = , ;[3] = , ;[4] = 20,31 ;[5] = 25,37 ;[6] = 33,36 ;[7] = 18,36 ;
+
+	hit = 1;
+	h[0] = "SKULEx.xpm";
+		[0] = 14,53 ;[1] = , ;[2] = , ;[3] = , ;[4] = 16,49 ;[5] = 15,54 ;[6] = 15,54 ;[7] = 11,53 ;
+
+	death = 6;
+	d[0] = "SKULF0.xpm";
+		[0] = 17,53 ;
+	d[1] = "SKULG0.xpm";
+		[0] = 17,53 ;
+	d[2] = "SKULH0.xpm";
+		[0] = 24,48 ;
+	d[3] = "SKULI0.xpm";
+		[0] = 35,58 ;
+	d[4] = "SKULJ0.xpm";
+		[0] = 45,75 ;
+	d[5] = "SKULK0.xpm";
+		[0] = 49,85 ;
+
+	explose = 0;
+}
