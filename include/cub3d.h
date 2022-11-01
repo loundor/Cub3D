@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:30:09 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/01 00:00:11 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/02 00:42:26 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "../libft/libft.h"
 #include <errno.h>
 #include <error.h>
+#include "./color.h"
 //#include <mlx.h>
 
 // Load structure
@@ -36,7 +37,7 @@
 #define	NBR_OF_GUNS	8
 #define	SCREEN_X 1024
 #define SCREEN_Y 768
-#define GAME_NAME "Cub3D by stissera"
+#define GAME_NAME "Cub3D by stissera & nobody"
 #define FOV 66
 #define FPS 50
 
@@ -75,7 +76,17 @@ typedef struct s_base
 int	ft_error(int value);
 int	ft_free_str(char *str);
 int	ft_free_tab(char **tab);
+int ft_free_int(int *nbr);
+int ft_free_tab_int(int **tab);
 int	ft_free_base(t_base *base);
+int ft_free_root_base(t_base *base);
+int ft_free_window(t_window *win);
+int ft_free_caractere(t_caractere *car);
+int ft_free_car_sprite(t_sprite *sprite);
+int ft_free_items(t_items *items);
+int ft_free_guns(t_guns *guns);
+int ft_free_ammo(t_ammo *ammo);
+int ft_free_map(t_map *map);
 
 // Make structure
 int	ft_s_player(t_base *base);
@@ -93,15 +104,28 @@ int	ft_file_name(char *file);
 int		ft_import_map (char *file, t_base *base);
 int		ft_read_line_map(char *buffer, char **line, int *w_map, t_base *base);
 int		ft_set_map(t_base *base, char *line, int inmap);
+//param
 int		ft_map_insert_param(char *line, t_base *base);
+int		ft_map_param_no(char *line, t_base *base);
+int		ft_map_param_so(char *line, t_base *base);
+int		ft_map_param_we(char *line, t_base *base);
+int		ft_map_param_ea(char *line, t_base *base);
+int		ft_map_param_f(char *line, t_base *base);
 int		ft_putarg_in(char *line, void **texture, int *type);
 int		ft_putarg_rgb(char *line,void **texture, int *type);
-int		ft_test_file_if_exist(char *file);
 void	ft_add_color_texture(unsigned char *rgba, void **texture);
+// map
+int		ft_map_create(char *line, t_map *map);
+int	ft_map_first(t_map *map, char *line);
+int	ft_realloc_map(t_map *map, char *line);
 
-int ft_load_file (char *file);
-
-
+// Utils
+int		ft_test_file_if_exist(char *file);
 t_base	*ft_get_struct(void *data);
+
+
+// Debug
+// Print before exit main and before free;
+void	ft_print_debug(t_base *base);
 
 #endif

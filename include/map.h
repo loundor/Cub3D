@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:56:31 by stissera          #+#    #+#             */
-/*   Updated: 2022/10/31 21:20:24 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/01 23:01:36 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_map
 {
 	int		size_x;
 	int		size_y;
-	int		**map;
+	char	**map;
 	int		wall_n;
 	void	*texture_n;
 	int		wall_s;
