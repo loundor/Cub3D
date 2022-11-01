@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:28:50 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/01 00:09:51 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/01 10:49:26 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int ac, char **av)
 		return (1 + (0 * ft_error(INIT_BASE) * ft_free_base(&base)));
 	if (ft_import_map (av[1], &base))
 		return (1 + (0 * ft_error(MAP_ERROR) * ft_free_base(&base)));
+	ft_free_base(&base);
 	return (0);
 }
 
@@ -104,9 +105,10 @@ int	ft_s_enemy(t_base *base)
 	t_caractere	**enemy;
 
 	enemy = NULL;
-	enemy = (t_caractere **)malloc((sizeof(t_caractere *) * NBR_OF_ENEMY) + 1);
+	enemy = (t_caractere **)malloc(sizeof(t_caractere *) * (NBR_OF_ENEMY + 1));
 	if (!enemy)
 		return (INIT_ALLOC);
+	enemy[NBR_OF_ENEMY] = NULL;
 	i = -1;
 	while (++i < NBR_OF_ENEMY)
 	{
@@ -127,9 +129,10 @@ int	ft_s_ammo(t_base *base)
 	t_ammo	**ammo;
 
 	ammo = NULL;
-	ammo = (t_ammo **)malloc((sizeof(t_ammo *) * NBR_OF_AMMO) + 1);
+	ammo = (t_ammo **)malloc(sizeof(t_ammo *) * (NBR_OF_AMMO + 1));
 	if (!ammo)
 		return (INIT_ALLOC);
+	ammo[NBR_OF_AMMO] = NULL;
 	i = -1;
 	while (++i < NBR_OF_AMMO)
 	{
@@ -150,9 +153,10 @@ int	ft_s_items(t_base *base)
 	t_items	**items;
 
 	items = NULL;
-	items = (t_items **)malloc((sizeof(t_items *) * NBR_OF_ITEMS) + 1);
+	items = (t_items **)malloc(sizeof(t_items *) * (NBR_OF_ITEMS + 1));
 	if (!items)
 		return (INIT_ALLOC);
+	items[NBR_OF_ITEMS] = NULL;
 	i = -1;
 	while (++i < NBR_OF_ITEMS)
 	{
@@ -173,9 +177,10 @@ int	ft_s_guns(t_base *base)
 	t_guns	**guns;
 
 	guns = NULL;
-	guns = (t_guns **)malloc(sizeof(t_guns *) * NBR_OF_GUNS + 1);
+	guns = (t_guns **)malloc(sizeof(t_guns *) * (NBR_OF_GUNS + 1));
 	if (!guns)
 		return (INIT_ALLOC);
+	guns[NBR_OF_GUNS] = NULL;
 	i = -1;
 	while (++i < NBR_OF_GUNS)
 	{
@@ -373,7 +378,7 @@ int	ft_putarg_rgb(char *line, void **texture, int *type)
 
 	i = 0;
 	ft_bzero(rgba, 4);
-	while (*line && i < 4)
+	while (*line) // && i < 4)
 	{
 		nbr = ft_atoi(line);
 		if (nbr < 0 || nbr > 255)
@@ -387,7 +392,7 @@ int	ft_putarg_rgb(char *line, void **texture, int *type)
 		if (*line)
 			i++;
 	}
-	if (i < 2)
+	if (i < 2 || i > 3)
 		exit(1 + (0 * ft_error(BAD_COLOR) * ft_free_base(ft_get_struct(0))));
 	*type = 0;
 	ft_add_color_texture(rgba, texture);
