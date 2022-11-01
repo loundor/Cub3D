@@ -6,13 +6,13 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:44:22 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/01 10:50:34 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:07:26 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int ft_free_str(char *str)
+int	ft_free_str(char *str)
 {
 	if (str)
 		free(str);
@@ -20,7 +20,7 @@ int ft_free_str(char *str)
 	return (0);
 }
 
-int ft_free_int(int *nbr)
+int	ft_free_int(int *nbr)
 {
 	if (nbr)
 		free(nbr);
@@ -28,7 +28,7 @@ int ft_free_int(int *nbr)
 	return (0);
 }
 
-int ft_free_tab(char **tab)
+int	ft_free_tab(char **tab)
 {
 	size_t	i;
 
@@ -43,7 +43,7 @@ int ft_free_tab(char **tab)
 	return (0);
 }
 
-int ft_free_tab_int(int **tab)
+int	ft_free_tab_int(int **tab)
 {
 	size_t	i;
 
@@ -60,10 +60,10 @@ int ft_free_tab_int(int **tab)
 
 int	ft_free_base(t_base *base)
 {
-	int i;
+	int	i;
 
 	i = -1;
-	if (base->player->start_position)
+	if (base->player && base->player->start_position)
 		free(base->player->start_position);
 	ft_free_window(base->window);
 	while (base->caractere && base->caractere[++i] != NULL)
@@ -83,7 +83,7 @@ int	ft_free_base(t_base *base)
 	return (0);
 }
 
-int ft_free_root_base(t_base *base)
+int	ft_free_root_base(t_base *base)
 {
 	free(base->player);
 	free(base->window);
@@ -95,7 +95,7 @@ int ft_free_root_base(t_base *base)
 	return (0);
 }
 
-int ft_free_window(t_window *win)
+int	ft_free_window(t_window *win)
 {
 	if (win->addr)
 		ft_free_str(win->addr);
@@ -108,7 +108,7 @@ int ft_free_window(t_window *win)
 	return (0);
 }
 
-int ft_free_caractere(t_caractere *car)
+int	ft_free_caractere(t_caractere *car)
 {
 	if (car->name && car->name != NULL)
 		ft_free_str(car->name);
@@ -121,23 +121,23 @@ int ft_free_caractere(t_caractere *car)
 	return (0);
 }
 
-int ft_free_car_sprite(t_sprite *sprite)
+int	ft_free_car_sprite(t_sprite *sprite)
 {
-	ft_free_tab(sprite->w_img); // [rotation][number of img]
+	ft_free_tab(sprite->w_img);
 	ft_free_tab_int(sprite->wx_decal);
 	ft_free_tab_int(sprite->wy_decal);
-	ft_free_tab(sprite->f_img); // [rotation][number]
+	ft_free_tab(sprite->f_img);
 	ft_free_tab_int(sprite->fx_decal);
 	ft_free_tab_int(sprite->fy_decal);
-	ft_free_tab(sprite->h_img); // [rotation][number]
+	ft_free_tab(sprite->h_img);
 	ft_free_tab_int(sprite->hx_decal);
 	ft_free_tab_int(sprite->hy_decal);
-	ft_free_str(sprite->d_img); // [rotation][number]
+	ft_free_str(sprite->d_img);
 	ft_free_str(sprite->e_img);
 	return (0);
 }
 
-int ft_free_items(t_items *items)
+int	ft_free_items(t_items *items)
 {
 	ft_free_str(items->name);
 	ft_free_tab((char **)items->sprite);
@@ -147,7 +147,7 @@ int ft_free_items(t_items *items)
 	return (0);
 }
 
-int ft_free_guns(t_guns *guns)
+int	ft_free_guns(t_guns *guns)
 {
 	ft_free_str(guns->name);
 	ft_free_tab((char **)guns->p_sprite);
@@ -166,7 +166,7 @@ int ft_free_guns(t_guns *guns)
 	return (0);
 }
 
-int ft_free_ammo(t_ammo *ammo)
+int	ft_free_ammo(t_ammo *ammo)
 {
 	ft_free_str(ammo->name);
 	ft_free_str(ammo->sprite);
@@ -174,7 +174,7 @@ int ft_free_ammo(t_ammo *ammo)
 	return (0);
 }
 
-int ft_free_map(t_map *map)
+int	ft_free_map(t_map *map)
 {
 	ft_free_tab_int(map->map);
 	ft_free_str(map->texture_n);
@@ -183,5 +183,5 @@ int ft_free_map(t_map *map)
 	ft_free_str(map->texture_w);
 	ft_free_str(map->texture_f);
 	ft_free_str(map->texture_c);
-	return(0);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:28:50 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/01 10:49:26 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:04:23 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_base	*ft_get_struct(void *data)
 
 	if (reload != 1)
 	{
-		base = (t_base *)base;
+		base = (t_base *)data;
 		reload = 1;
 		return (0);
 	}
@@ -79,7 +79,7 @@ int	ft_error(int value)
 	else if (value == 0xFF)
 		ft_putstr_fd("Malloc error!\n", 1);
 	else if (value == 0xA0)
-		ft_putstr_fd("File don't exist or bad access!\n", 1);
+		ft_putstr_fd("Sprite file don't exist or bad access!\n", 1);
 	else if (value == 0xAA)
 		ft_putstr_fd("Bad argument color!\n", 1);
 	else
@@ -378,7 +378,7 @@ int	ft_putarg_rgb(char *line, void **texture, int *type)
 
 	i = 0;
 	ft_bzero(rgba, 4);
-	while (*line) // && i < 4)
+	while (*line && i <= 3)
 	{
 		nbr = ft_atoi(line);
 		if (nbr < 0 || nbr > 255)
