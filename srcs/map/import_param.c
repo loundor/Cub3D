@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:58:09 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/02 00:46:46 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/02 10:32:39 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	ft_putarg_in(char *line, void **texture, int *type)
 			file[i] = line[i];
 		if (ft_test_file_if_exist(file) < 0)
 			exit(1 + (0 * ft_error(NEX_FILE) * ft_free_base(ft_get_struct(0))));
-		*texture = file;
+		if ((*texture && !ft_free_str(*texture)) || !*texture)
+			*texture = file;
 	}
 	else if (ft_putarg_rgb(line, texture, type))
 		exit(1 + (0 * ft_error(BAD_COLOR) * ft_free_base(ft_get_struct(0))));
@@ -89,7 +90,7 @@ void	ft_add_color_texture(unsigned char *rgba, void **texture)
 
 int	ft_map_insert_param(char *line, t_base *base)
 {
-	if (!ft_strncmp(line, "NO ", 3))
+	if (!ft_strncmp(line, "NO ", 3)) // A voir dans le sujet si N, S, W, E seul passe....
 		ft_map_param_no(line, base);
 	else if (!ft_strncmp(line, "SO ", 3))
 		ft_map_param_so(line, base);

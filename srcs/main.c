@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:28:50 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/02 00:44:48 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/02 10:32:36 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,24 @@
 
 void	ft_print_debug(t_base *base)
 {
-	printf(DARKAMGENTA "Map size: " RED"%d - %d\n"RST,
+	int	y;
+	int	x;
+
+	y = -1;
+	printf(DARKAMGENTA "Map size: " DARKRED "%d - %d\n"RST,
 		base->map->size_x, base->map->size_y);
+	while (base->map->map[++y])
+	{
+		x = -1;
+		while (base->map->map[y][++x])
+		{
+			if (base->player->pos_x == x && base->player->pos_y == y)
+				printf(BK_DARKBLUE "P"BK_RST);
+			else
+				printf(BK_DARKRED WHITE "%c"BK_RST RST, base->map->map[y][x]);
+		}
+		printf("\n");
+	}
 	return ;
 }
 
@@ -75,6 +91,8 @@ int	ft_error(int value)
 		ft_putstr_fd("Sprite file don't exist or bad access!\n", 1);
 	else if (value == 0xAA)
 		ft_putstr_fd("Bad argument color!\n", 1);
+	else if (value == 0xB0)
+		ft_putstr_fd("Error: Multiple player in card. Please fix for only one.\n", 1);
 	else
 		ft_putstr_fd("Exit\n", 1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:06:12 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/01 17:06:27 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/02 01:47:48 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	ft_free_base(t_base *base)
 	int	i;
 
 	i = -1;
-	if (base->player && base->player->start_position)
-		free(base->player->start_position);
 	ft_free_window(base->window);
 	while (base->caractere && base->caractere[++i] != NULL)
 		ft_free_caractere(base->caractere[i]);

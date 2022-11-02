@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:30:09 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/02 00:42:26 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/02 10:30:41 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ enum TYPE_ERR
 	INIT_WINDOW = 0x80,
 	INIT_ALLOC = 0xFF,
 	NEX_FILE = 0xA0,
-	BAD_COLOR = 0xAA
+	BAD_COLOR = 0xAA,
+	BAD_START = 0xB0
 };
 
 typedef struct s_base
@@ -116,8 +117,9 @@ int		ft_putarg_rgb(char *line,void **texture, int *type);
 void	ft_add_color_texture(unsigned char *rgba, void **texture);
 // map
 int		ft_map_create(char *line, t_map *map);
-int	ft_map_first(t_map *map, char *line);
-int	ft_realloc_map(t_map *map, char *line);
+int	ft_map_first(t_map *map, char *line, char **create);
+int	ft_realloc_map(t_map *map, char *line, char **create);
+void	ft_input_line_map(char **line, char **create, int *l, int *c);
 
 // Utils
 int		ft_test_file_if_exist(char *file);

@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:52:23 by stissera          #+#    #+#             */
-/*   Updated: 2022/10/31 13:19:59 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/02 01:47:01 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_player
 	float		pos_x;
 	float		pos_y;
 	float		pos_z;
-	char		*start_position;
+	char		start_position;
 	int			c_kill;
 	int			c_fire;
 	long long	c_time;

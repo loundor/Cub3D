@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:54:57 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/02 00:45:40 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/02 03:00:36 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_read_line_map(char *buffer, char **line, int *w_map, t_base *base)
 			return (1);
 		*line = NULL;
 	}
-	else if (!*line && *buffer == '\n' && *w_map > 0)
+	else if (!*line && *buffer == '\n' && *w_map > 0) // problem when last thing is \n !!!
 		return (1);
 	return (0);
 }
