@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:54:57 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/02 03:00:36 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/02 19:16:50 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	ft_import_map(char *file, t_base *base)
 	while (read(fd, &buffer, 1) && w_map != -1)
 		if (ft_read_line_map(buffer, &line, &w_map, base))
 			return (4 + (0 * write(1, "Error: Space line in map.\n", 26)));
+	if (line && ft_read_line_map("\n", &line, &w_map, base))
+		return (4 + (0 * write(1, "Error: Space line in map.\n", 26)));
 	if (w_map < 3)
 		return (MAP_ERROR);
 	return (0);
@@ -49,7 +51,7 @@ int	ft_read_line_map(char *buffer, char **line, int *w_map, t_base *base)
 			return (1);
 		*line = NULL;
 	}
-	else if (!*line && *buffer == '\n' && *w_map > 0) // problem when last thing is \n !!!
+	else if (!*line && (*buffer == '\n') && *w_map > 0)
 		return (1);
 	return (0);
 }

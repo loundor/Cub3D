@@ -3,7 +3,8 @@ CC			=	gcc
 FLAGS		=	-Wall -Werror -Wextra ${F_EXTRA}
 F_EXTRA		=	-g -fsanitize=address
 LIBRARY		=	./libft/libft.a ./MLX42/libmlx42.a ${LIB_LINUX}
-LIB_LINUX	=	-ldl -lglfw -pthread -lm
+LIB_LINUX	=	-ldl -lglfw -L "/Users/${USER}/.brew/opt/glfw/lib/" -pthread -lm ${LIB_MAC}
+LIB_MAC		=	-L "/Users/${USER}/.brew/opt/glfw/lib/"
 INCLUDE		=	-I./include -I./libft -I./MLX42/include
 SFOLDER		=	./srcs/
 SRCS		=	main.c \

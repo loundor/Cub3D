@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:28:50 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/02 13:25:08 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/02 19:17:37 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,32 @@ int	main(int ac, char **av)
 			return (1 + ft_free_window(base.window));
 	}
 	ft_get_struct(&base);
-	if (ft_s_player(&base) || ft_s_enemy(&base) || ft_s_guns(&base)
-		|| ft_s_ammo(&base) || ft_s_items(&base) || ft_s_map(&base))
-		return (1 + (0 * ft_error(INIT_BASE) * ft_free_base(&base)));
-	if (ft_import_map (av[1], &base))
-		return (1 + (0 * ft_error(MAP_ERROR) * ft_free_base(&base)));
-	ft_print_debug(&base);
+	if (ft_strart_screen(&base, av))
+		return (1);
 	mlx_terminate(base.window->mlx);
 	ft_free_base(&base);
+	return (0);
+}
+
+void	hook(void *param)
+{
+	mlx_t	*mlx;
+
+	mlx = param;
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(mlx);
+}
+
+int	ft_strart_screen(t_base *base, char **av)
+{
+	mlx_loop_hook(base->window->mlx, &hook, base->window->mlx);
+	if (ft_s_player(base) || ft_s_enemy(base) || ft_s_guns(base)
+		|| ft_s_ammo(base) || ft_s_items(base) || ft_s_map(base))
+		return (1 + (0 * ft_error(INIT_BASE) * ft_free_base(base)));
+	if (ft_import_map (av[1], base))
+		return (1 + (0 * ft_error(MAP_ERROR) * ft_free_base(base)));
+	ft_print_debug(base);
+	mlx_loop(base->window->mlx);
 	return (0);
 }
 
@@ -100,7 +118,7 @@ int	ft_error(int value)
 	else if (value == 0xAA)
 		ft_putstr_fd("Bad argument color!\n", 1);
 	else if (value == 0xB0)
-		ft_putstr_fd("Error: Multiple player in card. Please fix for only one.\n", 1);
+		ft_putstr_fd("Error: Multiple player in card.\n", 1);
 	else
 		ft_putstr_fd("Exit\n", 1);
 	return (0);

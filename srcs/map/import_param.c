@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:58:09 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/02 10:32:39 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/02 18:01:28 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ void	ft_add_color_texture(unsigned char *rgba, void **texture)
 	color = (int *)malloc(sizeof(int));
 	if (!color)
 		exit(1 + (0 * ft_error(BAD_COLOR) * ft_free_base(ft_get_struct(0))));
-	*color = *color << 8 | rgba[0];
-	*color = *color << 8 | rgba[1];
-	*color = *color << 8 | rgba[2];
 	if (rgba[3])
 		*color = *color << 8 | rgba[3];
 	else
 		*color = *color << 8;
+	*color = *color << 8 | rgba[0];
+	*color = *color << 8 | rgba[1];
+	*color = *color << 8 | rgba[2];
 	*texture = color;
 	return ;
 }
