@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:05:26 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/01 17:05:52 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/02 13:15:05 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,5 @@ int	ft_free_window(t_window *win)
 		ft_free_str(win->screen);
 	if (win->server)
 		ft_free_str(win->server);
-	if (win->win_id)
-		ft_free_str(win->win_id);
 	return (0);
 }

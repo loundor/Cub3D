@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:30:09 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/02 10:30:41 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/02 13:07:04 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <errno.h>
 #include <error.h>
 #include "./color.h"
-//#include <mlx.h>
+#include "../MLX42/include/MLX42/MLX42.h"
 
 // Load structure
 #include	"./player.h"

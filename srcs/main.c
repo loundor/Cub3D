@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:28:50 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/02 10:32:36 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/02 13:25:08 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,22 @@ int	main(int ac, char **av)
 		return (1 + (0 * ft_error(ARG)));
 	if (ft_file_name(av[1]))
 		return (1 + (0 * write(1, "Error file name! Need .cub\n", 27)));
+	if (ft_s_window(&base))
+		return (1 + (0 * ft_error(MAP_ERROR)));
+	else
+	{
+		base.window->mlx = mlx_init(SCREEN_X, SCREEN_Y, GAME_NAME, false);
+		if (!base.window->mlx)
+			return (1 + ft_free_window(base.window));
+	}
 	ft_get_struct(&base);
-	if (ft_s_player(&base) || ft_s_enemy(&base)
-		|| ft_s_guns(&base) || ft_s_ammo(&base) || ft_s_items(&base)
-		|| ft_s_map(&base) || ft_s_window(&base))
+	if (ft_s_player(&base) || ft_s_enemy(&base) || ft_s_guns(&base)
+		|| ft_s_ammo(&base) || ft_s_items(&base) || ft_s_map(&base))
 		return (1 + (0 * ft_error(INIT_BASE) * ft_free_base(&base)));
 	if (ft_import_map (av[1], &base))
 		return (1 + (0 * ft_error(MAP_ERROR) * ft_free_base(&base)));
 	ft_print_debug(&base);
+	mlx_terminate(base.window->mlx);
 	ft_free_base(&base);
 	return (0);
 }
