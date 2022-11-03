@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:25:43 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/02 10:35:16 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/03 12:27:01 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,12 @@ void	ft_input_line_map(char **line, char **create, int *l, int *c)
 		create[*l][*c] = '0';
 		if (base->player->start_position != 0 && !ft_error(BAD_START))
 			exit(1 + (0 * ft_free_base(ft_get_struct(0))));
+		if (**line == 'N')
+			base->player->angle = (PI / 2);
+		if (**line == 'S')
+			base->player->angle = (PI / 2) * 3;
+		if (**line == 'E')
+			base->player->angle = PI;
 		base->player->start_position = *line[0]++;
 		base->player->pos_x = *c;
 		base->player->pos_y = *l;

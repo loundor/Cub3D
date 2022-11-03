@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:52:23 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/02 01:47:01 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/03 12:24:56 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_player
 	int			guns[8];
 	int			ammo[4];
 	int			god;
+	int			hit;
 	int			berserk;
 	int			visibility;
 	int			invisibility;
@@ -31,9 +32,13 @@ typedef struct s_player
 	int			switch_gun;
 	int			jump;
 	int			crouch;
+	float		angle;
 	float		pos_x;
+	float		delta_x;
 	float		pos_y;
+	float		delta_y;
 	float		pos_z;
+	float		delta_z;
 	char		start_position;
 	int			c_kill;
 	int			c_fire;

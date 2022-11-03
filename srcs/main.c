@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:28:50 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/03 02:12:00 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/03 02:27:14 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int ac, char **av)
 		return (1 + (0 * ft_error(MAP_ERROR)));
 	else
 	{
-		base.window->mlx = mlx_init(SCREEN_X, SCREEN_Y, GAME_NAME, false);
+		base.window->mlx = mlx_init(SCREEN_X, SCREEN_Y, GAME_NAME, true);
 		if (!base.window->mlx)
 			return (1 + ft_free_window(base.window));
 	}

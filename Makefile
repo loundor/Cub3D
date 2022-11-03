@@ -8,6 +8,7 @@ LIB_MAC		=	-L "/Users/${USER}/.brew/opt/glfw/lib/"
 INCLUDE		=	-I./include -I./libft -I./MLX42/include
 SFOLDER		=	./srcs/
 SRCS		=	main.c \
+				debug.c \
 				$(addprefix map/, ${MAP}) \
 				$(addprefix free/, ${FREE}) \
 				$(addprefix set/, ${SET}) \

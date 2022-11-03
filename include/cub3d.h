@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:30:09 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/03 02:18:04 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/03 12:30:23 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include	<errno.h>
 # include "./color.h"
 # include "../MLX42/include/MLX42/MLX42.h"
+# include <math.h>
+
 
 // Load structure
 # include "./player.h"
@@ -38,7 +40,8 @@
 # define GAME_NAME		"Cub3D by stissera & nobody"
 # define FOV 66
 # define FPS 50
-
+# define PI 3.1415926535
+# define DEBUG 1
 //Color define
 # define OPAQUE	0xFF
 # define HIDE	0x0 << 8
@@ -130,8 +133,8 @@ int	ft_draw_minimap(t_base *base);
 
 //Hook
 void	hook(void *param);
+
 // Debug
-// Print before exit main and before free;
-void	ft_print_debug(t_base *base);
+int		ft_debug(t_base *base);
 
 #endif
