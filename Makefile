@@ -2,8 +2,8 @@ NAME		=	cub3d
 CC			=	gcc
 FLAGS		=	-Wall -Werror -Wextra ${F_EXTRA}
 F_EXTRA		=	-g -fsanitize=address
-LIBRARY		=	./libft/libft.a ./MLX42/libmlx42.a ${LIB_LINUX}
-LIB_LINUX	=	-ldl -lglfw -L "/Users/${USER}/.brew/opt/glfw/lib/" -pthread -lm ${LIB_MAC}
+LIBRARY		=	./libft/libft.a ./MLX42/libmlx42.a  ${LIB_LINUX}
+LIB_LINUX	=	-ldl -lglfw -pthread -lm #${LIB_MAC}
 LIB_MAC		=	-L "/Users/${USER}/.brew/opt/glfw/lib/"
 INCLUDE		=	-I./include -I./libft -I./MLX42/include
 SFOLDER		=	./srcs/
@@ -11,7 +11,9 @@ SRCS		=	main.c \
 				$(addprefix map/, ${MAP}) \
 				$(addprefix free/, ${FREE}) \
 				$(addprefix set/, ${SET}) \
-				$(addprefix utils/, ${UTILS})
+				$(addprefix utils/, ${UTILS}) \
+				$(addprefix hook/, ${HOOK}) \
+				$(addprefix draw/, ${DRAW})
 MAP			=	map.c \
 				import_param.c \
 				import_map.c \
@@ -30,6 +32,8 @@ SET			=	player.c \
 				window.c
 UTILS		=	ft_get_struct.c \
 				ft_test_file_if_exist.c
+HOOK		=	keyboard.c
+DRAW		=	minimap.c
 OBJS		=	$(addprefix ${SFOLDER}, ${SRCS: .c=.o})
 RM			=	rm -rf
 

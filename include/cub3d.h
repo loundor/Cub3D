@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:30:09 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/02 17:43:44 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/03 02:18:04 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdio.h>
 # include "../libft/libft.h"
 # include	<errno.h>
-//# include <error.h>
 # include "./color.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 
@@ -81,6 +80,7 @@ int		ft_free_tab_int(int **tab);
 int		ft_free_base(t_base *base);
 int		ft_free_root_base(t_base *base);
 int		ft_free_window(t_window *win);
+int		ft_free_minimap(t_window *win);
 int		ft_free_caractere(t_caractere *car);
 int		ft_free_car_sprite(t_sprite *sprite);
 int		ft_free_items(t_items *items);
@@ -125,7 +125,11 @@ void	ft_input_line_map(char **line, char **create, int *l, int *c);
 int		ft_test_file_if_exist(char *file);
 t_base	*ft_get_struct(void *data);
 
+// Drawing function
+int	ft_draw_minimap(t_base *base);
 
+//Hook
+void	hook(void *param);
 // Debug
 // Print before exit main and before free;
 void	ft_print_debug(t_base *base);

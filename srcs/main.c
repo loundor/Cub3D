@@ -6,34 +6,11 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:28:50 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/02 19:17:37 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/03 02:12:00 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-void	ft_print_debug(t_base *base)
-{
-	int	y;
-	int	x;
-
-	y = -1;
-	printf(DARKAMGENTA "Map size: " DARKRED "%d - %d\n"RST,
-		base->map->size_x, base->map->size_y);
-	while (base->map->map[++y])
-	{
-		x = -1;
-		while (base->map->map[y][++x])
-		{
-			if (base->player->pos_x == x && base->player->pos_y == y)
-				printf(BK_DARKBLUE "P"BK_RST);
-			else
-				printf(BK_DARKRED WHITE "%c"BK_RST RST, base->map->map[y][x]);
-		}
-		printf("\n");
-	}
-	return ;
-}
 
 int	main(int ac, char **av)
 {
@@ -59,15 +36,6 @@ int	main(int ac, char **av)
 	return (0);
 }
 
-void	hook(void *param)
-{
-	mlx_t	*mlx;
-
-	mlx = param;
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
-}
-
 int	ft_strart_screen(t_base *base, char **av)
 {
 	mlx_loop_hook(base->window->mlx, &hook, base->window->mlx);
@@ -76,7 +44,7 @@ int	ft_strart_screen(t_base *base, char **av)
 		return (1 + (0 * ft_error(INIT_BASE) * ft_free_base(base)));
 	if (ft_import_map (av[1], base))
 		return (1 + (0 * ft_error(MAP_ERROR) * ft_free_base(base)));
-	ft_print_debug(base);
+	ft_draw_minimap(base);
 	mlx_loop(base->window->mlx);
 	return (0);
 }
