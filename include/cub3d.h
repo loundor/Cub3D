@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:30:09 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/03 12:30:23 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/03 17:06:18 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define FPS 50
 # define PI 3.1415926535
 # define DEBUG 1
+
 //Color define
 # define OPAQUE	0xFF
 # define HIDE	0x0 << 8
@@ -129,10 +130,18 @@ int		ft_test_file_if_exist(char *file);
 t_base	*ft_get_struct(void *data);
 
 // Drawing function
+//Minimap
 int	ft_draw_minimap(t_base *base);
-
+void	ft_minimap_image(t_minimap *mini, t_window *win);
+void	ft_minimap_put_wf(t_map *map, t_minimap *mini, t_window *win);
+void	ft_minimap_put_elem(t_minimap *mini, t_window *win,
+	t_player *player);
+	
 //Hook
 void	hook(void *param);
+void	ft_player_move_fb(mlx_t *mlx, t_player *player, t_window *win);
+void	ft_player_turn(mlx_t *mlx, t_player *player);
+
 
 // Debug
 int		ft_debug(t_base *base);

@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:05:26 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/03 02:18:24 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/03 16:58:51 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_free_window(t_window *win)
 	return (0);
 }
 
-int ft_free_minimap(t_window *win)
+int	ft_free_minimap(t_window *win)
 {
 	if (win->minimap)
 	{

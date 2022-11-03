@@ -9,6 +9,7 @@ INCLUDE		=	-I./include -I./libft -I./MLX42/include
 SFOLDER		=	./srcs/
 SRCS		=	main.c \
 				debug.c \
+				ft_msg.c \
 				$(addprefix map/, ${MAP}) \
 				$(addprefix free/, ${FREE}) \
 				$(addprefix set/, ${SET}) \

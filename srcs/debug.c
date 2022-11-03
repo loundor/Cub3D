@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 12:27:28 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/03 12:31:32 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/03 17:12:31 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	ft_debug(t_base *base)
 {
 	if (DEBUG)
 	{
-		printf("Start position: %c\nDelta x : %f\nDelta y: %f\nPos_x: %f\nPos_y: %f\nAngle: %f -End FIRST\n",
+		printf("Start position: %c\nDelta x : %f\nDelta y: %f\n\
+Pos_x: %f\nPos_y: %f\nAngle: %f\n\n",
 			base->player->start_position,
 			base->player->delta_x,
 			base->player->delta_y,

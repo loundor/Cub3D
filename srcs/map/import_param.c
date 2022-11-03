@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:58:09 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/02 18:01:28 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/03 16:58:27 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	ft_add_color_texture(unsigned char *rgba, void **texture)
 
 int	ft_map_insert_param(char *line, t_base *base)
 {
-	if (!ft_strncmp(line, "NO ", 3)) // A voir dans le sujet si N, S, W, E seul passe....
+	if (!ft_strncmp(line, "NO ", 3))
 		ft_map_param_no(line, base);
 	else if (!ft_strncmp(line, "SO ", 3))
 		ft_map_param_so(line, base);
