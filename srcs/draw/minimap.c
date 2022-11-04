@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 00:22:11 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/03 16:57:59 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/04 14:09:43 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,13 @@ void	ft_minimap_put_wf(t_map *map, t_minimap *mini, t_window *win)
 void	ft_minimap_put_elem(t_minimap *mini, t_window *win,
 	t_player *player)
 {
-	player->delta_x = cos(player->angle);
-	player->delta_y = sin(player->angle);
+	player->delta_x = cos(player->angle *M_PI / 180.0);
+	player->delta_y = sin(player->angle *M_PI / 180.0);
 	player->pos_x = (player->pos_x * 32 + 4) + 16;
 	player->pos_y = (player->pos_y * 32 + 4) + 16;
 	mlx_image_to_window(win->mlx, mini->player, player->pos_x, player->pos_y);
+	mlx_put_pixel(mini->player, 4 - (player->delta_x * 3), 4 - (player->delta_y * 3), 0x00FF00FF);
+	mlx_put_pixel(mini->player, 4 - (player->delta_x * 2), 4 - (player->delta_y * 2), 0x00FF00FF);
+	mlx_put_pixel(mini->player, 4 - (player->delta_x * 1), 4 - (player->delta_y * 1), 0x00FF00FF);
+	mlx_put_pixel(mini->player, 4 - (player->delta_x), 4 - (player->delta_y), 0x00FF00FF);
 }

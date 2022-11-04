@@ -35,7 +35,9 @@ SET			=	player.c \
 UTILS		=	ft_get_struct.c \
 				ft_test_file_if_exist.c
 HOOK		=	keyboard.c
-DRAW		=	minimap.c
+DRAW		=	minimap.c \
+				ft_draw_line.c \
+				ft_draw_circle.c
 OBJS		=	$(addprefix ${SFOLDER}, ${SRCS: .c=.o})
 RM			=	rm -rf
 

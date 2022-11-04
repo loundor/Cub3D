@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:30:09 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/03 17:06:18 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/03 20:10:57 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,11 +136,15 @@ void	ft_minimap_image(t_minimap *mini, t_window *win);
 void	ft_minimap_put_wf(t_map *map, t_minimap *mini, t_window *win);
 void	ft_minimap_put_elem(t_minimap *mini, t_window *win,
 	t_player *player);
+//Basic draw
+mlx_image_t	*ft_draw_line(int32_t *xy, int32_t *dy,	int size,
+	int32_t color);
+mlx_image_t	*ft_draw_circle(float ray, int32_t colorin, int32_t colorout);
 	
 //Hook
 void	hook(void *param);
 void	ft_player_move_fb(mlx_t *mlx, t_player *player, t_window *win);
-void	ft_player_turn(mlx_t *mlx, t_player *player);
+void	ft_player_turn(mlx_t *mlx, t_player *player, t_window *win);
 
 
 // Debug
