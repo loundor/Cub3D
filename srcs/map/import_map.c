@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:25:43 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/04 14:08:53 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/11 18:01:03 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_map_create(char *line, t_map *map)
 		if (map->map || ft_map_first(map, line, NULL))
 			if (ft_realloc_map(map, line, NULL))
 				exit(1 + (0 * ft_error(INIT_ALLOC)
-						* ft_free_base(ft_get_struct(0))));
+						* ft_free_base((t_base *)ft_get_struct(0))));
 		return (1);
 	}
 	return (0);
@@ -39,11 +39,11 @@ int	ft_map_first(t_map *map, char *line, char **create)
 
 	create = (char **)malloc(sizeof(char *) * (map->size_y + 1));
 	if (!create && ft_error(INIT_ALLOC))
-		exit(1 + (0 * ft_free_base(ft_get_struct(0))));
+		exit(1 + (0 * ft_free_base((t_base *)ft_get_struct(0))));
 	ft_bzero(create, sizeof(char *) * (map->size_y + 1));
 	create[0] = (char *)malloc(sizeof(char) * (map->size_x + 1));
 	if (!create[0] && ft_error(INIT_ALLOC))
-		exit(1 + (0 * ft_free_base(ft_get_struct(0))));
+		exit(1 + (0 * ft_free_base((t_base *)ft_get_struct(0))));
 	ft_bzero(create[0], map->size_x + 1);
 	ft_memset(create[0], '0', map->size_x);
 	c = -1;
@@ -68,14 +68,14 @@ int	ft_realloc_map(t_map *map, char *line, char **create)
 
 	create = (char **)malloc(sizeof(char *) * (map->size_y + 1));
 	if (!create && ft_error(INIT_ALLOC))
-		exit(1 + (0 * ft_free_base(ft_get_struct(0))));
+		exit(1 + (0 * ft_free_base((t_base *)ft_get_struct(0))));
 	ft_bzero(create, sizeof(char *) * (map->size_y + 1));
 	l = -1;
 	while (++l < map->size_y)
 	{
 		create[l] = (char *)malloc(sizeof(char) * (map->size_x) + 1);
 		if (!create[l] && ft_error(INIT_ALLOC))
-			exit(1 + (0 * ft_free_base(ft_get_struct(0))));
+			exit(1 + (0 * ft_free_base((t_base *)ft_get_struct(0))));
 		ft_bzero(create[l], map->size_x + 1);
 		if (l < map->size_y - 1)
 			ft_memset(create[l], 48, map->size_x);
@@ -100,7 +100,7 @@ void	ft_input_line_map(char **line, char **create, int *l, int *c)
 	{
 		create[*l][*c] = '0';
 		if (base->player->start_position != 0 && !ft_error(BAD_START))
-			exit(1 + (0 * ft_free_base(ft_get_struct(0))));
+			exit(1 + (0 * ft_free_base((t_base *)ft_get_struct(0))));
 		if (**line == 'N')
 			base->player->angle = 90;
 		if (**line == 'S')

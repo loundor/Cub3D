@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:30:09 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/03 20:10:57 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/12 02:41:42 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,13 @@
 # define SCREEN_Y		768
 # define GAME_NAME		"Cub3D by stissera & nobody"
 # define FOV 66
+# define SCALE 32
 # define FPS 50
-# define PI 3.1415926535
+# define P_SPEED 1
+# define P_TURN_SPEED 3
 # define DEBUG 1
+# define MINIMAP_O // active la minimap
+
 
 //Color define
 # define OPAQUE	0xFF
@@ -127,15 +131,26 @@ void	ft_input_line_map(char **line, char **create, int *l, int *c);
 
 // Utils
 int		ft_test_file_if_exist(char *file);
-t_base	*ft_get_struct(void *data);
+void	*ft_get_struct(void *data);
+float	ft_degtorad(float deg);
+float	ft_radtodeg(float rad);
+int 	ft_fixangle(int angle);
 
 // Drawing function
 //Minimap
-int	ft_draw_minimap(t_base *base);
+int		ft_draw_minimap(t_base *base);
 void	ft_minimap_image(t_minimap *mini, t_window *win);
 void	ft_minimap_put_wf(t_map *map, t_minimap *mini, t_window *win);
 void	ft_minimap_put_elem(t_minimap *mini, t_window *win,
 	t_player *player);
+void	ft_player_mini_set(t_base *b, float x, float y, int color);
+void	ft_player_mini(t_base *b);
+
+//Ray
+int		ft_ray_2d(t_map *map, t_window *win, t_player *play, t_base *b);
+void	ft_check_ver(t_minimap *mm, t_map *map, t_player *p);
+void	ft_check_hor(t_minimap *mm, t_map *map, t_player *p);
+
 //Basic draw
 mlx_image_t	*ft_draw_line(int32_t *xy, int32_t *dy,	int size,
 	int32_t color);
@@ -143,9 +158,11 @@ mlx_image_t	*ft_draw_circle(float ray, int32_t colorin, int32_t colorout);
 	
 //Hook
 void	hook(void *param);
-void	ft_player_move_fb(mlx_t *mlx, t_player *player, t_window *win);
-void	ft_player_turn(mlx_t *mlx, t_player *player, t_window *win);
+void	ft_player_move_fb(mlx_t *mlx, t_player *player);
+void	ft_player_turn(mlx_t *mlx, t_player *player);
 
+//MLX add function
+int	ft_set_all_instances(mlx_image_t *image, int put);
 
 // Debug
 int		ft_debug(t_base *base);

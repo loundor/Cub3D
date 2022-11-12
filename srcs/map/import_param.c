@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:58:09 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/03 16:58:27 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/11 23:37:08 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@ int	ft_putarg_in(char *line, void **texture, int *type)
 		file = (char *)malloc((sizeof(char) * i) + 1);
 		if (!file)
 			exit(1 + (0 * ft_error(INIT_ALLOC)
-					* ft_free_base(ft_get_struct(0))));
+					* ft_free_base((t_base *)ft_get_struct(0))));
 		file[i] = 0;
 		while (--i >= 0)
 			file[i] = line[i];
 		if (ft_test_file_if_exist(file) < 0)
-			exit(1 + (0 * ft_error(NEX_FILE) * ft_free_base(ft_get_struct(0))));
+			exit(1 + (0 * ft_error(NEX_FILE) * ft_free_base((t_base *)ft_get_struct(0))));
 		if ((*texture && !ft_free_str(*texture)) || !*texture)
 			*texture = file;
 	}
 	else if (ft_putarg_rgb(line, texture, type))
-		exit(1 + (0 * ft_error(BAD_COLOR) * ft_free_base(ft_get_struct(0))));
+		exit(1 + (0 * ft_error(BAD_COLOR) * ft_free_base((t_base *)ft_get_struct(0))));
 	return (0);
 }
 
@@ -54,7 +54,7 @@ int	ft_putarg_rgb(char *line, void **texture, int *type)
 		nbr = ft_atoi(line);
 		if (nbr < 0 || nbr > 255)
 			exit(1 + (0 * ft_error(BAD_COLOR)
-					* ft_free_base(ft_get_struct(0))));
+					* ft_free_base((t_base *)ft_get_struct(0))));
 		rgba[i] = nbr + 0;
 		while (*line && ft_isdigit(*(line++)))
 			;
@@ -64,7 +64,7 @@ int	ft_putarg_rgb(char *line, void **texture, int *type)
 			i++;
 	}
 	if (i < 2 || i > 3)
-		exit(1 + (0 * ft_error(BAD_COLOR) * ft_free_base(ft_get_struct(0))));
+		exit(1 + (0 * ft_error(BAD_COLOR) * ft_free_base((t_base *)ft_get_struct(0))));
 	*type = 0;
 	ft_add_color_texture(rgba, texture);
 	return (0);
@@ -76,7 +76,7 @@ void	ft_add_color_texture(unsigned char *rgba, void **texture)
 
 	color = (int *)malloc(sizeof(int));
 	if (!color)
-		exit(1 + (0 * ft_error(BAD_COLOR) * ft_free_base(ft_get_struct(0))));
+		exit(1 + (0 * ft_error(BAD_COLOR) * ft_free_base((t_base *)ft_get_struct(0))));
 	if (rgba[3])
 		*color = *color << 8 | rgba[3];
 	else

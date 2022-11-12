@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window.c                                           :+:      :+:    :+:   */
+/*   ft_fixangle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/01 17:16:17 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/09 15:27:35 by stissera         ###   ########.fr       */
+/*   Created: 2022/11/05 16:21:09 by stissera          #+#    #+#             */
+/*   Updated: 2022/11/11 23:38:32 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int	ft_s_window(t_base *base)
+int	ft_fixangle(int angle)
 {
-	t_window	*window;
-
-	window = (t_window *)malloc(sizeof(t_window) * 1);
-	if (!window)
-		return (INIT_ALLOC);
-	ft_bzero(window, sizeof(t_window));
-	window->scale = SCREEN_X / SCALE;
-	base->window = window;
-	return (0);
+	if (angle > 359)
+		angle -= 360;
+	if (angle < 0)
+		angle += 360;
+	return (angle);
 }

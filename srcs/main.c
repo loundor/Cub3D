@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 23:28:50 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/03 17:16:45 by stissera         ###   ########.fr       */
+/*   Updated: 2022/11/09 15:26:59 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	main(int ac, char **av)
 
 int	ft_strart_screen(t_base *base, char **av)
 {
+	// mlx_mouse_hook();
+	//mlx_key_hook(base->window->mlx, &hook, base->window->mlx);
 	mlx_loop_hook(base->window->mlx, &hook, base->window->mlx);
 	if (ft_s_player(base) || ft_s_enemy(base) || ft_s_guns(base)
 		|| ft_s_ammo(base) || ft_s_items(base) || ft_s_map(base))
