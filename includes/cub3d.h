@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/02 17:00:40 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:22:37 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include "../libft/libft.h"
-# include "../minilibx_opengl_20191021/mlx.h"
+# include <mlx.h>
+// # include "../minilibx_opengl_20191021/mlx.h"
 # include <errno.h>
 # include <math.h>
 
