@@ -1,52 +1,29 @@
 NAME		=	cub3d
 CC			=	gcc
-FLAGS		=	-Wall -Werror -Wextra ${F_EXTRA}
+FLAGS		=	-Wall -Werror -Wextra  -Imlx ${F_EXTRA}
 F_EXTRA		=	-g -fsanitize=address
-LIBRARY		=	./libft/libft.a ./MLX42/libmlx42.a  ${LIB_LINUX}
+LIBRARY		=	./libft.a
 LIB_LINUX	=	-ldl -lglfw -pthread -lm #${LIB_MAC}
 LIB_MAC		=	-L "/Users/${USER}/.brew/opt/glfw/lib/"
-INCLUDE		=	-I./include -I./libft -I./MLX42/include
+INCLUDE		=	-I./include -I./libft
 SFOLDER		=	./srcs/
 SRCS		=	main.c \
-				debug.c \
-				ft_msg.c \
 				$(addprefix map/, ${MAP}) \
 				$(addprefix free/, ${FREE}) \
-				$(addprefix set/, ${SET}) \
 				$(addprefix utils/, ${UTILS}) \
-				$(addprefix hook/, ${HOOK}) \
-				$(addprefix draw/, ${DRAW})
 MAP			=	map.c \
 				import_param.c \
 				import_map.c \
-				texture_param.c
-FREE		=	free_base.c \
-				free_map.c \
-				free_obj.c \
+FREE		=	free_map.c \
 				free_utils.c \
-				free_window.c
-SET			=	player.c \
-				enemy.c \
-				ammo.c \
-				items.c \
-				guns.c \
-				map.c \
-				window.c
 UTILS		=	ft_get_struct.c \
 				ft_test_file_if_exist.c \
-				degrad.c \
-				ft_fixangle.c
-HOOK		=	keyboard.c
-DRAW		=	minimap.c \
-				ft_draw_line.c \
-				ft_draw_circle.c \
-				ray.c
 OBJS		=	$(addprefix ${SFOLDER}, ${SRCS: .c=.o})
 RM			=	rm -rf
 
 $(NAME)		:	${OBJS}
 				@echo Linking 🔗
-				@${CC} ${FLAGS} ${OBJS} ${INCLUDES} ${LIBRARY} -o $@
+				@${CC} ${FLAGS} ${OBJS} ${INCLUDES} ${LIBRARY} -lmlx -framework OpenGL -framework AppKit -o $@
 				@echo Making ⚒
 				@echo "\033[0;32m-= Ready to play! 👾 =- \033[0;0m"
 

@@ -5,50 +5,45 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/30 23:28:50 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/09 15:26:59 by stissera         ###   ########.fr       */
+/*   Created: 2023/01/02 10:39:23 by stissera          #+#    #+#             */
+/*   Updated: 2023/01/02 14:56:39 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../includes/cub3d.h"
 
-int	main(int ac, char **av)
+int	main(int ac, char *av)
 {
-	t_base	base;
+	t_game	g;
 
 	if (ac != 2)
 		return (1 + (0 * ft_error(ARG)));
 	if (ft_file_name(av[1]))
 		return (1 + (0 * write(1, "Error file name! Need .cub\n", 27)));
-	if (ft_s_window(&base))
+	if (ft_s_window(&g))
 		return (1 + (0 * ft_error(MAP_ERROR)));
 	else
-	{
-		base.window->mlx = mlx_init(SCREEN_X, SCREEN_Y, GAME_NAME, true);
-		if (!base.window->mlx)
-			return (1 + ft_free_window(base.window));
-	}
-	ft_get_struct(&base);
-	if (ft_strart_screen(&base, av))
+		window_init(&g);
+	if (ft_import_map (av[1], g))
+		return (1 + (0 * ft_error(MAP_ERROR)));
+	ft_get_struct(&g);
+	if (ft_strart_screen(&g, av))
 		return (1);
-	mlx_terminate(base.window->mlx);
-	ft_free_base(&base);
+	mlx_terminate(g.mlx);
+	ft_free_base(&g);
 	return (0);
 }
 
-int	ft_strart_screen(t_base *base, char **av)
+void	window_init(t_game *g)
 {
-	// mlx_mouse_hook();
-	//mlx_key_hook(base->window->mlx, &hook, base->window->mlx);
-	mlx_loop_hook(base->window->mlx, &hook, base->window->mlx);
-	if (ft_s_player(base) || ft_s_enemy(base) || ft_s_guns(base)
-		|| ft_s_ammo(base) || ft_s_items(base) || ft_s_map(base))
-		return (1 + (0 * ft_error(INIT_BASE) * ft_free_base(base)));
-	if (ft_import_map (av[1], base))
-		return (1 + (0 * ft_error(MAP_ERROR) * ft_free_base(base)));
-	ft_draw_minimap(base);
-	mlx_loop(base->window->mlx);
-	return (0);
+	g->mlx = mlx_init();
+	g->win = mlx_new_window(g->mlx, SCREEN_X, SCREEN_Y, NAME);
+	g->img->img = mlx_new_image(g->mlx, SCREEN_X, SCREEN_Y);
+	g->img->addr = mlx_get_data_addr(g->img->img, &g->img->bits_per_pixel,
+			&g->img->line_length, &g->img->endian);
+	g->scale = SCREEN_X / SCALE;
+	if (!g->mlx)
+		exit (1 + ft_free_window(g->mlx));
 }
 
 int	ft_file_name(char *file)
