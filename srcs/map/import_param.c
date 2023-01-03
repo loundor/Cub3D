@@ -6,41 +6,25 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:58:09 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/02 14:36:33 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/02 23:59:34 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int	ft_putarg_in(char *line, t_img *texture, t_game *g)
+static void	ft_add_color_texture(unsigned char *rgba, mlx_texture_t **texture, int id)
 {
-	int		i;
-	char	*file;
+	unsigned int	color;
+	//t_game			*g;
 
-	i = 0;
-	file = NULL;
-	if (!strncmp(line, "./", 2) || !strncmp(line, "../", 3))
-	{
-		while (line[i] && line[i] != ' ')
-			i++;
-		file = (char *)malloc((sizeof(char) * i) + 1);
-		if (!file)
-			exit(1 + (0 * ft_error(INIT_ALLOC)));
-		file[i] = 0;
-		while (--i >= 0)
-			file[i] = line[i];
-		texture->img = mlx_xpm_file_to_image(g->mlx, file, &texture->width,
-				&texture->heihgt);
-		ft_free_str(file);
-		if (!texture->img)
-			exit(1 + (0 * ft_error(NEX_FILE)));
-	}
-	else if (ft_putarg_rgb(line, texture))
-		exit(1 + (0 * ft_error(BAD_COLOR)));
-	return (0);
+	color = rgba[0] << 24 | rgba[1] << 16 | rgba[2] << 8 | rgba[3];
+	//g = ft_get_struct(NULL);
+	*texture[id] = (mlx_texture_t){1, 1, 32, malloc(sizeof(uint8_t))};
+	texture[id]->pixels[0] = (uint8_t)color;
+	return ;
 }
 
-int	ft_putarg_rgb(char *line, t_img *texture)
+static int	ft_putarg_rgb(char *line, mlx_texture_t **texture, int id)
 {
 	unsigned char	rgba[4];
 	int				i;
@@ -63,46 +47,40 @@ int	ft_putarg_rgb(char *line, t_img *texture)
 	}
 	if (i < 2 || i > 3)
 		exit(1 + (0 * ft_error(BAD_COLOR)));
-	if (!rgba[4])
-		rgba[4] = 0;
-	ft_add_color_texture(rgba, texture);
+	if (!rgba[3])
+		rgba[3] = 0;
+	ft_add_color_texture(rgba, texture, id);
 	return (0);
 }
 
-void	ft_add_color_texture(char *rgba, t_img *texture)
+static int	ft_putarg_in(char *line, mlx_texture_t **texture, int id)
 {
-	unsigned int	color;
-	t_game			*g;
+	int		i;
+	char	*file;
 
-	color = rgba[0] << 24 | rgba[1] << 16 | rgba[2] << 8 | rgba[4];
-	g = ft_get_struct(NULL);
-	texture->img = mlx_new_image(g->mlx, 1, 1);
-	texture->addr = mlx_get_data_addr(texture->img, texture->bits_per_pixel,
-			texture->line_length, texture->endian);
-	texture->addr = color;
-	return ;
-}
-
-int	ft_map_insert_param(char *line, t_game *base)
-{
-	if (!ft_strncmp(line, "NO ", 3))
-		ft_map_param_wf(line, base, 0);
-	else if (!ft_strncmp(line, "SO ", 3))
-		ft_map_param_wf(line, base, 1);
-	else if (!ft_strncmp(line, "WE ", 3))
-		ft_map_param_wf(line, base, 2);
-	else if (!ft_strncmp(line, "EA ", 3))
-		ft_map_param_wf(line, base, 3);
-	else if (!ft_strncmp(line, "F ", 2))
-		ft_map_param_wf(line, base, 4);
-	else if (!ft_strncmp(line, "C ", 2))
-		ft_map_param_wf(line, base, 5);
-	else
-		return (-1 + (0 * write(1, "Invalid argurment in map file!\n", 31)));
+	i = 0;
+	file = NULL;
+	if (!strncmp(line, "./", 2) || !strncmp(line, "../", 3))
+	{
+		while (line[i] && line[i] != ' ')
+			i++;
+		file = (char *)malloc((sizeof(char) * i) + 1);
+		if (!file)
+			exit(1 + (0 * ft_error(INIT_ALLOC)));
+		file[i] = 0;
+		while (--i >= 0)
+			file[i] = line[i];
+		texture[id] = mlx_load_png(file);
+		ft_free_str(file);
+		if (texture[id] == NULL)
+			exit(1 + (0 * ft_error(NEX_FILE)));
+	}
+	else if (ft_putarg_rgb(line, texture, id))
+		exit(1 + (0 * ft_error(BAD_COLOR)));
 	return (0);
 }
 
-int	ft_map_param_wf(char *line, t_game *g, int i)
+static int	ft_map_param_wf(char *line, t_game *g, int i)
 {
 	if (i == 4 || i == 5)
 		line += 2;
@@ -111,6 +89,25 @@ int	ft_map_param_wf(char *line, t_game *g, int i)
 	while (line && *line == ' ')
 		line++;
 	if (*line)
-		ft_putarg_in(line, &g->map->texture[i], g);
+		ft_putarg_in(line, g->map->texture, i);
+	return (0);
+}
+
+int	ft_map_insert_param(char *line, t_game *g)
+{
+	if (!ft_strncmp(line, "NO ", 3))
+		ft_map_param_wf(line, g, 0);
+	else if (!ft_strncmp(line, "SO ", 3))
+		ft_map_param_wf(line, g, 1);
+	else if (!ft_strncmp(line, "WE ", 3))
+		ft_map_param_wf(line, g, 2);
+	else if (!ft_strncmp(line, "EA ", 3))
+		ft_map_param_wf(line, g, 3);
+	else if (!ft_strncmp(line, "F ", 2))
+		ft_map_param_wf(line, g, 4);
+	else if (!ft_strncmp(line, "C ", 2))
+		ft_map_param_wf(line, g, 5);
+	else
+		return (-1 + (0 * write(1, "Invalid argurment in map file!\n", 31)));
 	return (0);
 }

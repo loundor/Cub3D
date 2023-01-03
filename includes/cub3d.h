@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/02 17:22:37 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/03 08:58:46 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include "../libft/libft.h"
-# include <mlx.h>
-// # include "../minilibx_opengl_20191021/mlx.h"
+//# include <mlx.h>
+# include "../MLX42/include/MLX42/MLX42.h"
 # include <errno.h>
 # include <math.h>
 
@@ -68,9 +68,9 @@ typedef struct s_img
 typedef struct s_map
 {
 	unsigned int	size_x;
-	unsigned int	size_y;
+	unsigned int	size_y;git 
 	char			**map;
-	t_img			texture[6];
+	mlx_texture_t	*texture[6];
 }	t_map;
 
 typedef struct s_game
@@ -78,11 +78,29 @@ typedef struct s_game
 	void			*mlx;
 	void			*win;
 	double			scale;
-	t_img			*img;
+	mlx_image_t		*img;
 	t_pos			*player;
 	t_img			screen;
 	t_map			*map;
 	unsigned int	fov;
 }	t_game;
+
+
+void	window_init(t_game *g);
+int		ft_file_name(char *file);
+int		ft_free_map(t_map *map);
+int		ft_free_str(char *str);
+int		ft_free_int(int *nbr);
+int		ft_free_tab(char **tab);
+int		ft_free_tab_int(int **tab);
+
+void	hook(void *g);
+int		ft_import_map(char *file, t_game *base);
+int		ft_map_create(char *line, t_map *map);
+int		ft_map_insert_param(char *line, t_game *g);
+int		ft_file_exist(char *file);
+void	*ft_get_struct(void *data);
+
+int		ft_error(int value);
 
 #endif

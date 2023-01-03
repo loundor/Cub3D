@@ -6,33 +6,74 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:25:43 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/02 14:37:11 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/03 00:27:04 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int	ft_map_create(char *line, t_map *map)
+static void	ft_input_line_map(char **line, char **create, unsigned int *l, unsigned int *c)
 {
-	int	i;
+	t_pos	*g;
 
-	i = 0;
-	while (line[i])
-		i++;
-	if (i > 0)
+	g = ft_get_struct(NULL);
+	*c = *c + 1;
+	if (**line == 'N' || **line == 'S' || **line == 'E' || **line == 'W')
 	{
-		if (i > map->size_x)
-			map->size_x = i;
-		map->size_y++;
-		if (map->map || ft_map_first(map, line, NULL))
-			if (ft_realloc_map(map, line, NULL))
-				exit(1 + (0 * ft_error(INIT_ALLOC)));
-		return (1);
+		create[*l][*c] = '0';
+		if (g->positioned != 0 && !ft_error(BAD_START))
+			exit(1);
+		if (**line == 'N')
+			g->angle = 90;
+		if (**line == 'S')
+			g->angle = 270;
+		if (**line == 'E')
+			g->angle = 180;
+		g->positioned = *line[0]++;
+		g->x = *c;
+		g->y = *l;
 	}
+	else if (**line == ' ' && *line[0]++)
+		create[*l][*c] = '0';
+	else
+		create[*l][*c] = *line[0]++;
+	return ;
+}
+
+static int	ft_realloc_map(t_map *map, char *line, char **create)
+{
+	unsigned int		l;
+	unsigned int		c;
+
+	create = (char **)malloc(sizeof(char *) * (map->size_y + 1));
+	if (!create && ft_error(INIT_ALLOC))
+		exit(1);
+	ft_bzero(create, sizeof(char *) * (map->size_y + 1));
+	l = 0;
+	while (l < map->size_y)
+	{
+		create[l] = (char *)malloc(sizeof(char) * (map->size_x) + 1);
+		if (!create[l] && ft_error(INIT_ALLOC))
+			exit(1);
+		ft_bzero(create[l], map->size_x + 1);
+		if (l < map->size_y - 1)
+			ft_memset(create[l], 48, map->size_x);
+		c = 0;
+		while (l < map->size_y - 1 && map->map[l][c])
+		{
+			create[l][c] = map->map[l][c];
+			c++;
+		}
+		l++;
+	}
+	ft_memset(create[--l], '0', map->size_x);
+	while (*line)
+		ft_input_line_map(&line, create, &l, &c);
+	map->map = ft_free_tab(map->map) + create;
 	return (0);
 }
 
-int	ft_map_first(t_map *map, char *line, char **create)
+static int	ft_map_first(t_map *map, char *line, char **create)
 {
 	int		c;
 
@@ -60,59 +101,22 @@ int	ft_map_first(t_map *map, char *line, char **create)
 	return (0);
 }
 
-int	ft_realloc_map(t_map *map, char *line, char **create)
+int	ft_map_create(char *line, t_map *map)
 {
-	int		l;
-	int		c;
+	unsigned int	i;
 
-	create = (char **)malloc(sizeof(char *) * (map->size_y + 1));
-	if (!create && ft_error(INIT_ALLOC))
-		exit(1);
-	ft_bzero(create, sizeof(char *) * (map->size_y + 1));
-	l = -1;
-	while (++l < map->size_y)
+	i = 0;
+	while (line[i])
+		i++;
+	if (i > 0)
 	{
-		create[l] = (char *)malloc(sizeof(char) * (map->size_x) + 1);
-		if (!create[l] && ft_error(INIT_ALLOC))
-			exit(1);
-		ft_bzero(create[l], map->size_x + 1);
-		if (l < map->size_y - 1)
-			ft_memset(create[l], 48, map->size_x);
-		c = -1;
-		while (l < map->size_y - 1 && map->map[l][++c])
-			create[l][c] = map->map[l][c];
+		if (i > map->size_x)
+			map->size_x = i;
+		map->size_y++;
+		if (map->map || ft_map_first(map, line, NULL))
+			if (ft_realloc_map(map, line, NULL))
+				exit(1 + (0 * ft_error(INIT_ALLOC)));
+		return (1);
 	}
-	ft_memset(create[--l], '0', map->size_x);
-	while (*line)
-		ft_input_line_map(&line, create, &l, &c);
-	map->map = ft_free_tab(map->map) + create;
 	return (0);
-}
-
-void	ft_input_line_map(char **line, char **create, int *l, int *c)
-{
-	t_pos	*g;
-
-	g = ft_get_struct(NULL);
-	*c = *c + 1;
-	if (**line == 'N' || **line == 'S' || **line == 'E' || **line == 'W')
-	{
-		create[*l][*c] = '0';
-		if (g->positioned != 0 && !ft_error(BAD_START))
-			exit(1);
-		if (**line == 'N')
-			g->angle = 90;
-		if (**line == 'S')
-			g->angle = 270;
-		if (**line == 'E')
-			g->angle = 180;
-		g->positioned = *line[0]++;
-		g->x = *c;
-		g->y = *l;
-	}
-	else if (**line == ' ' && *line[0]++)
-		create[*l][*c] = '0';
-	else
-		create[*l][*c] = *line[0]++;
-	return ;
 }
