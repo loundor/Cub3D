@@ -6,25 +6,21 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:58:09 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/02 23:59:34 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/03 14:42:51 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static void	ft_add_color_texture(unsigned char *rgba, mlx_texture_t **texture, int id)
+static void	ft_add_color_texture(unsigned char *rgba,
+	t_map *map, int id)
 {
-	unsigned int	color;
-	//t_game			*g;
-
-	color = rgba[0] << 24 | rgba[1] << 16 | rgba[2] << 8 | rgba[3];
-	//g = ft_get_struct(NULL);
-	*texture[id] = (mlx_texture_t){1, 1, 32, malloc(sizeof(uint8_t))};
-	texture[id]->pixels[0] = (uint8_t)color;
+	map->color[id] = rgba[0] << 24 | rgba[1] << 16 | rgba[2] << 8 | 0xFF;
+	map->texture[id] = NULL;
 	return ;
 }
 
-static int	ft_putarg_rgb(char *line, mlx_texture_t **texture, int id)
+static int	ft_putarg_rgb(char *line, t_map *map, int id)
 {
 	unsigned char	rgba[4];
 	int				i;
@@ -49,11 +45,11 @@ static int	ft_putarg_rgb(char *line, mlx_texture_t **texture, int id)
 		exit(1 + (0 * ft_error(BAD_COLOR)));
 	if (!rgba[3])
 		rgba[3] = 0;
-	ft_add_color_texture(rgba, texture, id);
+	ft_add_color_texture(rgba, map, id);
 	return (0);
 }
 
-static int	ft_putarg_in(char *line, mlx_texture_t **texture, int id)
+static int	ft_putarg_in(char *line, t_map *map, int id)
 {
 	int		i;
 	char	*file;
@@ -70,12 +66,13 @@ static int	ft_putarg_in(char *line, mlx_texture_t **texture, int id)
 		file[i] = 0;
 		while (--i >= 0)
 			file[i] = line[i];
-		texture[id] = mlx_load_png(file);
+		map->texture[id] = mlx_load_png(file);
+		map->color[id] = 0;
 		ft_free_str(file);
-		if (texture[id] == NULL)
+		if (map->texture[id] == NULL)
 			exit(1 + (0 * ft_error(NEX_FILE)));
 	}
-	else if (ft_putarg_rgb(line, texture, id))
+	else if (ft_putarg_rgb(line, map, id))
 		exit(1 + (0 * ft_error(BAD_COLOR)));
 	return (0);
 }
@@ -89,7 +86,7 @@ static int	ft_map_param_wf(char *line, t_game *g, int i)
 	while (line && *line == ' ')
 		line++;
 	if (*line)
-		ft_putarg_in(line, g->map->texture, i);
+		ft_putarg_in(line, g->map, i);
 	return (0);
 }
 

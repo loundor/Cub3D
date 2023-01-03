@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/03 09:10:21 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/03 18:18:09 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # define SCREEN_Y 768
 # define SCALE 32
 # define NAME "CUB3D - stissera"
+# define P_SPEED 0.5
+# define P_TURN_SPEED 0.5
+# define FPS 50
 
 enum e_type_err
 {
@@ -48,10 +51,12 @@ typedef struct s_point
 
 typedef struct s_pos
 {
-	double		x;
-	double		y;
-	double		angle;
-	char		positioned;
+	double			x;
+	double			y;
+	double			angle;
+	char			positioned;
+	double			dx;
+	double			dy;
 }	t_pos;
 
 typedef struct s_img
@@ -67,10 +72,11 @@ typedef struct s_img
 
 typedef struct s_map
 {
-	int	size_x;
-	int	size_y;
+	int				size_x;
+	int				size_y;
 	char			**map;
 	mlx_texture_t	*texture[6];
+	int				color[6];
 }	t_map;
 
 typedef struct s_game
@@ -80,12 +86,11 @@ typedef struct s_game
 	double			scale;
 	mlx_image_t		*img;
 	t_pos			*player;
-	t_img			screen;
 	t_map			*map;
 	unsigned int	fov;
 }	t_game;
 
-
+int		ft_init_struct(t_game *g, t_map *map, t_pos *player);
 void	window_init(t_game *g);
 int		ft_file_name(char *file);
 int		ft_free_map(t_map *map);
@@ -102,5 +107,12 @@ int		ft_file_exist(char *file);
 void	*ft_get_struct(void *data);
 
 int		ft_error(int value);
+void	ft_print_struct(t_game *g);
 
+void	ft_player_move_fb(mlx_t *mlx, t_pos *player);
+void	ft_player_turn(mlx_t *mlx, t_pos *player);
+
+int	ft_fixangle(int angle);
+float	ft_degtorad(float deg);
+float	ft_radtodeg(float rad);
 #endif

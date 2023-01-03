@@ -3,7 +3,7 @@ CC			=	gcc
 FLAGS		=	-Wall -Werror -Wextra ${F_EXTRA}
 F_EXTRA		=	-g -fsanitize=address
 LIBRARY		=	./libft/libft.a ./MLX42/libmlx42.a  ${LIB_LINUX}
-LIB_LINUX	=	-ldl -lglfw -pthread -lm #${LIB_MAC}
+LIB_LINUX	=	-ldl -lglfw -pthread -lm ${LIB_MAC}
 LIB_MAC		=	-L "/Users/${USER}/.brew/opt/glfw/lib/"
 INCLUDE		=	-I./include -I./libft -I./MLX42/include
 SFOLDER		=	./srcs/
@@ -20,7 +20,8 @@ MAP			=	map.c \
 FREE		=	free_map.c \
 				free_utils.c
 UTILS		=	ft_get_struct.c \
-				ft_file_exist.c
+				ft_file_exist.c \
+				ft_file_name.c
 OBJS		=	$(addprefix ${SFOLDER}, ${SRCS: .c=.o})
 RM			=	rm -rf
 
