@@ -6,17 +6,17 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:25:43 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/03 00:27:04 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/03 09:51:49 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static void	ft_input_line_map(char **line, char **create, unsigned int *l, unsigned int *c)
+static void	ft_input_line_map(char **line, char **create, int *l, int *c)
 {
 	t_pos	*g;
 
-	g = ft_get_struct(NULL);
+	g = ft_get_struct("player");
 	*c = *c + 1;
 	if (**line == 'N' || **line == 'S' || **line == 'E' || **line == 'W')
 	{
@@ -42,15 +42,15 @@ static void	ft_input_line_map(char **line, char **create, unsigned int *l, unsig
 
 static int	ft_realloc_map(t_map *map, char *line, char **create)
 {
-	unsigned int		l;
-	unsigned int		c;
+	int		l;
+	int		c;
 
 	create = (char **)malloc(sizeof(char *) * (map->size_y + 1));
 	if (!create && ft_error(INIT_ALLOC))
 		exit(1);
 	ft_bzero(create, sizeof(char *) * (map->size_y + 1));
-	l = 0;
-	while (l < map->size_y)
+	l = -1;
+	while (++l < map->size_y)
 	{
 		create[l] = (char *)malloc(sizeof(char) * (map->size_x) + 1);
 		if (!create[l] && ft_error(INIT_ALLOC))
@@ -58,13 +58,9 @@ static int	ft_realloc_map(t_map *map, char *line, char **create)
 		ft_bzero(create[l], map->size_x + 1);
 		if (l < map->size_y - 1)
 			ft_memset(create[l], 48, map->size_x);
-		c = 0;
-		while (l < map->size_y - 1 && map->map[l][c])
-		{
+		c = -1;
+		while (l < map->size_y - 1 && map->map[l][++c])
 			create[l][c] = map->map[l][c];
-			c++;
-		}
-		l++;
 	}
 	ft_memset(create[--l], '0', map->size_x);
 	while (*line)
@@ -103,7 +99,7 @@ static int	ft_map_first(t_map *map, char *line, char **create)
 
 int	ft_map_create(char *line, t_map *map)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
 	while (line[i])

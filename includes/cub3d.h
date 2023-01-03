@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/03 08:58:46 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/03 09:10:21 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ typedef struct s_img
 
 typedef struct s_map
 {
-	unsigned int	size_x;
-	unsigned int	size_y;git 
+	int	size_x;
+	int	size_y;
 	char			**map;
 	mlx_texture_t	*texture[6];
 }	t_map;

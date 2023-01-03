@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:54:57 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/03 00:13:21 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/03 09:54:21 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static int	ft_set_map(t_game *g, char *line, int onmap)
 {
 	size_t	i;
-
 	if (!onmap)
 	{
 		i = 0;

@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:39:23 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/03 00:21:05 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/03 09:31:01 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,14 @@ int	main(int ac, char **av)
 {
 	t_game	g;
 	t_map	map;
+	t_pos	player;
+	player.positioned = 0;
 	map.size_x = 0;
 	map.size_y = 0;
+	map.map = NULL;
+	g.player = &player;
 	g.map = &map;
+	ft_get_struct(&g);
 	
 	if (ac != 2)
 		return (1 + (0 * ft_error(ARG)));
@@ -32,7 +37,7 @@ int	main(int ac, char **av)
 	//	return (1);
 	if (ft_import_map (av[1], &g))
 		return (1 + (0 * ft_error(MAP_ERROR)));
-	ft_get_struct(&g);
+	
 
 	mlx_loop_hook(g.mlx, &hook, &g.mlx);
 	mlx_loop(g.mlx);
