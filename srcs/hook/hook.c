@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 17:28:38 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/03 18:20:15 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:13:33 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_player_turn(mlx_t *mlx, t_pos *player)
 	player->dy = -sin(ft_degtorad(player->angle));
 }
 
-int	ft_fixangle(int angle)
+double	ft_fixangle(double angle)
 {
 	if (angle > 359)
 		angle -= 360;

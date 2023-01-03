@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/03 18:18:09 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:13:32 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	ft_print_struct(t_game *g);
 void	ft_player_move_fb(mlx_t *mlx, t_pos *player);
 void	ft_player_turn(mlx_t *mlx, t_pos *player);
 
-int	ft_fixangle(int angle);
+double		ft_fixangle(double angle);
 float	ft_degtorad(float deg);
 float	ft_radtodeg(float rad);
 #endif
