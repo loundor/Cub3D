@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:42:07 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/06 22:26:28 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/06 22:30:02 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,8 @@ void	ft_draw_scaled(t_game *g, t_ray *ray, mlx_texture_t *texture, unsigned int 
 		while (error >= ray->height && ++y)
 			error -= ray->height;
 		g->img->pixels[(col * 4) + (g->img->width * dst_y * 4)] = 0xFF;//textures->pixels[(y + SCREEN_X * 4) + x * 4];
-		g->img->pixels[(col * 4) + (g->img->width * dst_y++ * 4) + 3] = 0xFF;//textures->pixels[(y + SCREEN_X * 4) + x * 4];
-		//g->img->pixels[SCREEN_X * 4 * dst_y++ + (col * 3) + 1] = 0xFF; //textures->pixels[(y + SCREEN_X * 4) + x * 4 + 1];
-		//g->img->pixels[SCREEN_X * 4 * dst_y++ + (col * 3) + 2] = 0x00; //textures->pixels[(y + SCREEN_X * 4) + x * 4 + 2];
-		//g->img->pixels[SCREEN_X * 4 * dst_y++ + (col * 3) + 3] = 0xFF; //textures->pixels[(y + SCREEN_X * 4) + x * 4 + 2];
-
-//		g->img->pixels[((SCREEN_X + dst_y) * 4) + (col * 3) + 3] = 0xa8; //textures->pixels[(y + SCREEN_X * 4) + x * 4 + 3];
+		g->img->pixels[(col * 4) + (g->img->width * dst_y++ * 4) + 3] = 0xFF;
 		error += SCREEN_Y;
-		//mlx_put_pixel(g->img, col, dst_y, 0xff0000ff);
 	}
 	
 }
