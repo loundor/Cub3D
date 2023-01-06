@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/03 19:13:32 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/06 22:24:10 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include "../libft/libft.h"
-//# include <mlx.h>
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <errno.h>
 # include <math.h>
@@ -26,8 +25,7 @@
 # define SCREEN_Y 768
 # define SCALE 32
 # define NAME "CUB3D - stissera"
-# define P_SPEED 0.5
-# define P_TURN_SPEED 0.5
+# define P_SPEED 0.1
 # define FPS 50
 
 enum e_type_err
@@ -77,18 +75,32 @@ typedef struct s_map
 	char			**map;
 	mlx_texture_t	*texture[6];
 	int				color[6];
+	mlx_image_t		*img[6];
 }	t_map;
+
+typedef struct s_ray
+{
+	unsigned int	height;
+	double			texture_pos;
+	char			dir;
+}	t_ray;
 
 typedef struct s_game
 {
 	void			*mlx;
 	void			*win;
+	double			step;
 	double			scale;
+	float			fov;
+	float			aspect;
 	mlx_image_t		*img;
 	t_pos			*player;
 	t_map			*map;
-	unsigned int	fov;
+	t_ray			ray[SCREEN_X];
 }	t_game;
+
+void	ft_sum_ray(t_game *g);
+void	ft_draw(t_game *g);
 
 int		ft_init_struct(t_game *g, t_map *map, t_pos *player);
 void	window_init(t_game *g);
@@ -111,6 +123,7 @@ void	ft_print_struct(t_game *g);
 
 void	ft_player_move_fb(mlx_t *mlx, t_pos *player);
 void	ft_player_turn(mlx_t *mlx, t_pos *player);
+void	ft_player_strafe(mlx_t *mlx, t_pos *player);
 
 double		ft_fixangle(double angle);
 float	ft_degtorad(float deg);

@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 17:28:38 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/03 19:13:33 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/06 21:10:49 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,31 @@ void	hook(void *base)
 	if (mlx_is_key_down(g->mlx, MLX_KEY_A)
 		|| mlx_is_key_down(g->mlx, MLX_KEY_D))
 		ft_player_turn(g->mlx, g->player);
+	if (mlx_is_key_down(g->mlx, MLX_KEY_Q)
+		|| mlx_is_key_down(g->mlx, MLX_KEY_E))
+		ft_player_strafe(g->mlx, g->player);
 //	if (mlx_is_key_down(g->mlx, MLX_KEY_B))
 //		ft_debug(base);
 //	if (mlx_is_key_down(g->mlx, MLX_KEY_TAB))
 //		base->window->minimap_o = 1;
 //	else
 //		base->window->minimap_o = 0;
-//	ft_ray_2d(base->map, base->window, base->player, base);
+	g->player->dx = cos(g->player->angle);
+	g->player->dy = sin(g->player->angle);
 
-	printf("player x:%f - y: %f\n player angle: %f\n", g->player->x, g->player->y, g->player->angle);
+	mlx_put_pixel(g->img, g->player->x, g->player->y, 255);
+	ft_sum_ray(g);
+	ft_draw(g);
+	
+	//printf("player x:%f - y: %f\n player angle: %f\n", g->player->x, g->player->y, g->player->angle);
+
+//	for (int i = 0; i < SCREEN_X; i++)
+//	{
+//		printf("RAY %d\n", i);
+//		printf("heigth: %u\n", g->ray[512].height);
+	//	printf("texture: %f\n", g->ray[512].texture_pos);
+	//	printf("dir: %c\n\n", g->ray[512].dir);
+//	}
 }
 
 void	ft_player_move_fb(mlx_t *mlx, t_pos *player)
@@ -51,24 +67,37 @@ void	ft_player_move_fb(mlx_t *mlx, t_pos *player)
 	}
 }
 
+void	ft_player_strafe(mlx_t *mlx, t_pos *player)
+{
+	if (mlx_is_key_down(mlx, MLX_KEY_Q) && !mlx_is_key_down(mlx, MLX_KEY_E))
+	{
+		player->x += player->dy * P_SPEED;
+		player->y -= player->dx * P_SPEED;
+	}
+	else if (!mlx_is_key_down(mlx, MLX_KEY_Q)
+		&& mlx_is_key_down(mlx, MLX_KEY_E))
+	{
+		player->x -= player->dy * P_SPEED;
+		player->y += player->dx * P_SPEED;
+	}
+}
+
 void	ft_player_turn(mlx_t *mlx, t_pos *player)
 {
 	if (mlx_is_key_down(mlx, MLX_KEY_A) && !mlx_is_key_down(mlx, MLX_KEY_D))
-		player->angle += P_TURN_SPEED;
+		player->angle -= P_SPEED / 4;
 	else if (!mlx_is_key_down(mlx, MLX_KEY_A)
 		&& mlx_is_key_down(mlx, MLX_KEY_D))
-		player->angle -= P_TURN_SPEED;
+		player->angle += P_SPEED / 4;
 	player->angle = ft_fixangle(player->angle);
-	player->dx = cos(ft_degtorad(player->angle));
-	player->dy = -sin(ft_degtorad(player->angle));
 }
 
 double	ft_fixangle(double angle)
 {
-	if (angle > 359)
-		angle -= 360;
 	if (angle < 0)
-		angle += 360;
+		angle += (M_PI * 2);
+	else if (angle > M_PI * 2)
+		angle -= (M_PI * 2);
 	return (angle);
 }
 

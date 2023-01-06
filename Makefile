@@ -1,9 +1,9 @@
-NAME		=	cub3d
+NAME		=	cub3D
 CC			=	gcc
 FLAGS		=	-Wall -Werror -Wextra ${F_EXTRA}
 F_EXTRA		=	-g -fsanitize=address
 LIBRARY		=	./libft/libft.a ./MLX42/libmlx42.a  ${LIB_LINUX}
-LIB_LINUX	=	-ldl -lglfw -pthread -lm ${LIB_MAC}
+LIB_LINUX	=	-ldl -lglfw -pthread -lm #${LIB_MAC}
 LIB_MAC		=	-L "/Users/${USER}/.brew/opt/glfw/lib/"
 INCLUDE		=	-I./include -I./libft -I./MLX42/include
 SFOLDER		=	./srcs/
@@ -12,6 +12,7 @@ SRCS		=	main.c \
 				$(addprefix map/, ${MAP}) \
 				$(addprefix hook/, ${HOOK}) \
 				$(addprefix free/, ${FREE}) \
+				$(addprefix ray/, ${RAY}) \
 				$(addprefix utils/, ${UTILS})
 HOOK		=	hook.c
 MAP			=	map.c \
@@ -22,6 +23,8 @@ FREE		=	free_map.c \
 UTILS		=	ft_get_struct.c \
 				ft_file_exist.c \
 				ft_file_name.c
+RAY			=	ft_sum_ray.c \
+				ft_draw.c
 OBJS		=	$(addprefix ${SFOLDER}, ${SRCS: .c=.o})
 RM			=	rm -rf
 

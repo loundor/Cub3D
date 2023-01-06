@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:25:43 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/03 09:51:49 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/06 20:32:54 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ static void	ft_input_line_map(char **line, char **create, int *l, int *c)
 		if (g->positioned != 0 && !ft_error(BAD_START))
 			exit(1);
 		if (**line == 'N')
-			g->angle = 90;
+			g->angle = M_PI_2 * 3;
 		if (**line == 'S')
-			g->angle = 270;
-		if (**line == 'E')
-			g->angle = 180;
+			g->angle = M_PI_2;
+		if (**line == 'W')
+			g->angle = M_PI;
 		g->positioned = *line[0]++;
-		g->x = *c;
-		g->y = *l;
+		g->x = *c + 0.5;
+		g->y = *l + 0.5;
 	}
 	else if (**line == ' ' && *line[0]++)
 		create[*l][*c] = '0';
