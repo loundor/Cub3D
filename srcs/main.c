@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:39:23 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/06 22:08:33 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/07 12:05:07 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	window_init(t_game *g)
 		exit (1);// + ft_free_window(g->mlx));
 	g->img = mlx_new_image(g->mlx, SCREEN_X, SCREEN_Y);
 	mlx_image_to_window(g->mlx, g->img, 0, 0);
-	mlx_put_string(g->mlx, "LOADING...", 200, 200);
 	g->fov = ((g->aspect >= 1.77) - (g->aspect < 1.77)) * \
 			sqrt(fabs(M_PI_4 * (g->aspect - 1.77) / 2)) + M_PI_2;
 	g->step = tan(g->fov / (SCREEN_X - 1));
