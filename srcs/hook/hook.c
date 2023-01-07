@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 17:28:38 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/06 21:10:49 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/07 11:55:50 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	hook(void *base)
 //		base->window->minimap_o = 0;
 	g->player->dx = cos(g->player->angle);
 	g->player->dy = sin(g->player->angle);
-
-	mlx_put_pixel(g->img, g->player->x, g->player->y, 255);
 	ft_sum_ray(g);
 	ft_draw(g);
 	

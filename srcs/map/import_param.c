@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:58:09 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/03 14:42:51 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/07 11:53:38 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	ft_add_color_texture(unsigned char *rgba,
 	t_map *map, int id)
 {
-	map->color[id] = rgba[0] << 24 | rgba[1] << 16 | rgba[2] << 8 | 0xFF;
+	map->color[id] = rgba[3] << 24 | rgba[2] << 16 | rgba[1] << 8 | rgba[0];
 	map->texture[id] = NULL;
 	return ;
 }
@@ -44,7 +44,7 @@ static int	ft_putarg_rgb(char *line, t_map *map, int id)
 	if (i < 2 || i > 3)
 		exit(1 + (0 * ft_error(BAD_COLOR)));
 	if (!rgba[3])
-		rgba[3] = 0;
+		rgba[3] = 255;
 	ft_add_color_texture(rgba, map, id);
 	return (0);
 }

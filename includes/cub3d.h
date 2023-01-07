@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/06 22:24:10 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/07 11:21:22 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct s_map
 	int				size_y;
 	char			**map;
 	mlx_texture_t	*texture[6];
-	int				color[6];
+	unsigned int	color[6];
 	mlx_image_t		*img[6];
 }	t_map;
 
@@ -101,6 +101,8 @@ typedef struct s_game
 
 void	ft_sum_ray(t_game *g);
 void	ft_draw(t_game *g);
+void ft_fill_img(void *pixels, unsigned int fill, size_t s, size_t e);
+
 
 int		ft_init_struct(t_game *g, t_map *map, t_pos *player);
 void	window_init(t_game *g);
@@ -125,7 +127,7 @@ void	ft_player_move_fb(mlx_t *mlx, t_pos *player);
 void	ft_player_turn(mlx_t *mlx, t_pos *player);
 void	ft_player_strafe(mlx_t *mlx, t_pos *player);
 
-double		ft_fixangle(double angle);
-float	ft_degtorad(float deg);
-float	ft_radtodeg(float rad);
+
+double	ft_fixangle(double angle);
+int		ft_max(int i, int j);
 #endif

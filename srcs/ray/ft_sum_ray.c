@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:40:56 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/06 21:10:14 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/07 11:58:28 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@ static void	ray_sum(t_game *g, double angle, unsigned int ray)
 	sty = 1 - 2 * (angle > M_PI);
 	x = ray_inter_x(g, stx, stx * tan(angle));
 	y = ray_inter_y(g, (float)sty / tan(angle), (float)sty);
-	dist = (t_pos){g->player->dx * (x.x - g->player->x) + g->player->dy * (x.y - g->player->y), \
-			g->player->dx * (y.x - g->player->x) + g->player->dy * (y.y - g->player->y), 0, 0, 0, 0};
+	dist = (t_pos){g->player->dx * (x.x - g->player->x) +
+			g->player->dy * (x.y - g->player->y), \
+			g->player->dx * (y.x - g->player->x) +
+			g->player->dy * (y.y - g->player->y), 0, 0, 0, 0};
 	if (dist.x < dist.y)
 		g->ray[ray] = (t_ray){(unsigned int)(g->scale / dist.x) & ~1,
 			x.y - (int)x.y, "EW"[x.x < g->player->x]};
@@ -78,7 +80,8 @@ void	ft_sum_ray(t_game *g)
 	ray = 0;
 	while (ray < SCREEN_X)
 	{
-		angle = g->player->angle + atan(g->step * (ray - ((float)SCREEN_X / 2)));
+		angle = g->player->angle +
+			atan(g->step * (ray - ((float)SCREEN_X / 2)));
 		angle = ft_fixangle(angle);
 		ray_sum(g, angle, ray);
 		ray++;

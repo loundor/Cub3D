@@ -22,26 +22,46 @@ FREE		=	free_map.c \
 				free_utils.c
 UTILS		=	ft_get_struct.c \
 				ft_file_exist.c \
-				ft_file_name.c
+				ft_file_name.c \
+				ft_max.c
 RAY			=	ft_sum_ray.c \
 				ft_draw.c
-OBJS		=	$(addprefix ${SFOLDER}, ${SRCS: .c=.o})
+OBJS		=	$(addprefix ${SFOLDER}, ${SRCS:.c=.o})
 RM			=	rm -rf
 
-$(NAME)		:	${OBJS}
+.c.o	:
+			@$(CC) $(FLAGS) -c $(HEADER) -g -fsanitize=address $< $ -o ${<:.c=.o}
+
+$(NAME)		:	$(LIBFT) $(MLXGL) $(OBJS)
 				@echo Linking 🔗
 				@${CC} ${FLAGS} ${OBJS} ${INCLUDES} ${LIBRARY} -o $@
 				@echo Making ⚒
 				@echo "\033[0;32m-= Ready to play! 👾 =- \033[0;0m"
 
-all			:	${NAME}
+$(LIBFT) 	:
+				@echo "Make of libft...🔥"
+				@make -s -C ./libft
 
-#re			:	fclean all
+$(MLXGL)	:
+				@echo "Make of minilibx 42 Codam...🔥"
+				@make -s -C ./MLX42
+
+all			:	$(NAME)
+
+re			:	fclean all
 
 clean		:
-				${RM} ${OBJS}
+				@echo "Cleaning object... 🗑"
+				@$(RM) $(OBJS)
+				@echo "Cleaning libft...🗑"
+				@make -s -C ./libft clean
+				@echo "Cleaning MinilibX 42 Codam...🗑"
+				@make -s -C ./MLX42 clean
 
-#fclean		:	clean
-#				${RED} ${RM} ${NAME} ${RST}	
+fclean		:	clean
+				@$(RM) $(NAME) $(LIBFT) $(MLXGL) 
+				@make -C ./libft fclean
+				@make -C ./MLX42 fclean
+				@echo "Full clean finish... 🧹"
 
 .PHONY		:	${NAME} all clean fclean re

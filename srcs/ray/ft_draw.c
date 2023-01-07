@@ -6,19 +6,15 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:42:07 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/06 22:58:05 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/07 11:49:32 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int	ft_max(int i, int j)
-{
-	if (i < j)
-		return (j);
-	return i;
-}
-void	ft_draw_scaled(t_game *g, t_ray *ray, mlx_texture_t *texture, unsigned int col)
+
+void	ft_draw_scaled(t_game *g, t_ray *ray, mlx_texture_t *texture,
+	unsigned int col)
 {
 	//const unsigned int	x = ray->texture_pos * texture->width;
 	(void)texture;
@@ -74,8 +70,7 @@ void	ft_draw_scaled(t_game *g, t_ray *ray, mlx_texture_t *texture, unsigned int 
 		g->img->pixels[(col * 4) + (g->img->width * dst_y * 4) + 2] = color[2];
 		g->img->pixels[(col * 4) + (g->img->width * dst_y++ * 4) + 3] = 0xFF;
 		error += SCREEN_Y;
-	}
-	
+	}	
 }
 
 void	ft_draw(t_game *g)
@@ -84,7 +79,11 @@ void	ft_draw(t_game *g)
 	unsigned int	textures;
 
 	ray = 0;
-	memset(g->img->pixels, 0,g->img->width * g->img->height * 4);
+	ft_fill_img(g->img->pixels, g->map->color[5], 0,
+		g->img->width * g->img->height / 2);
+	ft_fill_img(g->img->pixels, g->map->color[4],
+		g->img->width * g->img->height / 2 + 40,
+		g->img->width * g->img->height);
 	while (ray < SCREEN_X)
 	{
 
@@ -92,5 +91,20 @@ void	ft_draw(t_game *g)
 		ft_draw_scaled(g, &g->ray[ray], g->map->texture[textures], ray);
 		ray++;
 	}
+}
 
+void ft_fill_img(void *pixels, unsigned int fill, size_t s, size_t e)
+{
+	unsigned int *array;
+	size_t	t;
+
+	array = pixels;
+	if (s > e)
+	{
+		t = e;
+		e = s;
+		s = t;
+	}
+	while (s < e)
+		array[s++] = fill;
 }
