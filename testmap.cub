@@ -1,12 +1,11 @@
-NO         ./textures/LAVA3.png
-SO     ./textures/LAVA3.png
-WE ./textures/LAVA3.png
-EA ./textures/LAVA3.png
-EA ./textures/LAVA3.png
+NO         ./textures/W28_6.png
+SO     ./textures/W96_2.png
+WE ./textures/WALL69_4.png
+EA ./textures/RP1_1.png
 
-F 154, 105, 55, 255
+F 95, 95, 95
 
-C 85, 161, 239
+C 35, 35, 35, 255
 
 1111111111111111111111111111111
 1011111111110011101111111111111

@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 17:28:38 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/08 14:57:34 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/08 22:07:11 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ void	ft_player_strafe(mlx_t *mlx, t_pos *player, t_game *g)
 	if (mlx_is_key_down(mlx, MLX_KEY_Q) && !mlx_is_key_down(mlx, MLX_KEY_E))
 	{
 		if (g->map->map[(int)player->y] \
-			[(int)(player->x + (0.1 * player->dy))] == 48)
+			[(int)(player->x + (0.5 * player->dy))] == 48)
 			player->x += player->dy * g->p_speed;
-		if (g->map->map[(int)(player->y - (0.2 * player->dx))] \
+		if (g->map->map[(int)(player->y - (0.5 * player->dx))] \
 		[(int)player->x] == 48)
 			player->y -= player->dx * g->p_speed;
 	}
@@ -98,9 +98,9 @@ void	ft_player_strafe(mlx_t *mlx, t_pos *player, t_game *g)
 		&& mlx_is_key_down(mlx, MLX_KEY_E))
 	{
 		if (g->map->map[(int)player->y] \
-			[(int)(player->x - (0.2 * player->dy))] == 48)
+			[(int)(player->x - (0.5 * player->dy))] == 48)
 			player->x -= player->dy * g->p_speed;
-		if (g->map->map[(int)(player->y + (0.2 * player->dx))] \
+		if (g->map->map[(int)(player->y + (0.5 * player->dx))] \
 			[(int)player->x] == 48)
 			player->y += player->dx * g->p_speed;
 	}
