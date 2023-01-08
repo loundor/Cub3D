@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:39:23 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/07 12:05:07 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/07 18:16:34 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	ft_init_struct(t_game *g, t_map *map, t_pos *player)
 	*map = (t_map){0};
 	g->player = player;
 	g->map = map;
+	g->p_speed = 0.1;
+	g->pt_speed = 0.1;
 	return (0);
 }
 

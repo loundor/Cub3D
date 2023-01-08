@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:42:07 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/07 11:49:32 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/07 18:04:41 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,10 @@ void	ft_draw(t_game *g)
 	ft_fill_img(g->img->pixels, g->map->color[5], 0,
 		g->img->width * g->img->height / 2);
 	ft_fill_img(g->img->pixels, g->map->color[4],
-		g->img->width * g->img->height / 2 + 40,
+		g->img->width * g->img->height / 2,
 		g->img->width * g->img->height);
 	while (ray < SCREEN_X)
 	{
-
 		textures = ft_strchr("NSWE", g->ray[ray].dir) - "NSWE";
 		ft_draw_scaled(g, &g->ray[ray], g->map->texture[textures], ray);
 		ray++;

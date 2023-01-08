@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/07 12:06:58 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/07 18:16:19 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ typedef struct s_game
 	t_pos			*player;
 	t_map			*map;
 	t_ray			ray[SCREEN_X];
+	double			p_speed;
+	double			pt_speed;
 }	t_game;
 
 void	ft_sum_ray(t_game *g);
@@ -123,9 +125,9 @@ void	*ft_get_struct(void *data);
 int		ft_error(int value);
 void	ft_print_struct(t_game *g);
 
-void	ft_player_move_fb(mlx_t *mlx, t_pos *player);
-void	ft_player_turn(mlx_t *mlx, t_pos *player);
-void	ft_player_strafe(mlx_t *mlx, t_pos *player);
+void	ft_player_move_fb(mlx_t *mlx, t_pos *player, t_game *g);
+void	ft_player_turn(mlx_t *mlx, t_pos *player, t_game *g);
+void	ft_player_strafe(mlx_t *mlx, t_pos *player, t_game *g);
 
 
 double	ft_fixangle(double angle);

@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 17:28:38 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/07 11:55:50 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/08 14:57:34 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,25 @@ void	hook(void *base)
 	g = (t_game *)base;
 	if (mlx_is_key_down(g->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(g->mlx);
+	if (mlx_is_key_down(g->mlx, MLX_KEY_LEFT_SHIFT))
+	{
+		g->pt_speed = 0.15;
+		g->p_speed = 0.2;
+	}
+	if (!mlx_is_key_down(g->mlx, MLX_KEY_LEFT_SHIFT))
+	{
+		g->pt_speed = 0.1;
+		g->p_speed = 0.1;
+	}
 	if (mlx_is_key_down(g->mlx, MLX_KEY_S)
 		|| mlx_is_key_down(g->mlx, MLX_KEY_W))
-		ft_player_move_fb(g->mlx, g->player);
+		ft_player_move_fb(g->mlx, g->player, g);
 	if (mlx_is_key_down(g->mlx, MLX_KEY_A)
 		|| mlx_is_key_down(g->mlx, MLX_KEY_D))
-		ft_player_turn(g->mlx, g->player);
+		ft_player_turn(g->mlx, g->player, g);
 	if (mlx_is_key_down(g->mlx, MLX_KEY_Q)
 		|| mlx_is_key_down(g->mlx, MLX_KEY_E))
-		ft_player_strafe(g->mlx, g->player);
+		ft_player_strafe(g->mlx, g->player, g);
 //	if (mlx_is_key_down(g->mlx, MLX_KEY_B))
 //		ft_debug(base);
 //	if (mlx_is_key_down(g->mlx, MLX_KEY_TAB))
@@ -50,43 +60,59 @@ void	hook(void *base)
 //	}
 }
 
-void	ft_player_move_fb(mlx_t *mlx, t_pos *player)
+void	ft_player_move_fb(mlx_t *mlx, t_pos *player, t_game *g)
 {
 	if (mlx_is_key_down(mlx, MLX_KEY_S) && !mlx_is_key_down(mlx, MLX_KEY_W))
 	{
-		player->x -= player->dx * P_SPEED;
-		player->y -= player->dy * P_SPEED;
+		if (g->map->map[(int)player->y] \
+			[(int)(player->x - (0.5 * player->dx))] == 48)
+			player->x -= player->dx * g->p_speed;
+		if (g->map->map[(int)(player->y - (0.5 * player->dy))] \
+			[(int)player->x] == 48)
+			player->y -= player->dy * g->p_speed;
 	}
 	else if (!mlx_is_key_down(mlx, MLX_KEY_S)
 		&& mlx_is_key_down(mlx, MLX_KEY_W))
 	{
-		player->x += player->dx * P_SPEED;
-		player->y += player->dy * P_SPEED;
+		if (g->map->map[(int)player->y] \
+			[(int)(player->x + (0.5 * player->dx))] == 48)
+			player->x += player->dx * g->p_speed;
+		if (g->map->map[(int)(player->y + (0.5 * player->dy))] \
+			[(int)player->x] == 48)
+			player->y += player->dy * g->p_speed;
 	}
 }
 
-void	ft_player_strafe(mlx_t *mlx, t_pos *player)
+void	ft_player_strafe(mlx_t *mlx, t_pos *player, t_game *g)
 {
 	if (mlx_is_key_down(mlx, MLX_KEY_Q) && !mlx_is_key_down(mlx, MLX_KEY_E))
 	{
-		player->x += player->dy * P_SPEED;
-		player->y -= player->dx * P_SPEED;
+		if (g->map->map[(int)player->y] \
+			[(int)(player->x + (0.1 * player->dy))] == 48)
+			player->x += player->dy * g->p_speed;
+		if (g->map->map[(int)(player->y - (0.2 * player->dx))] \
+		[(int)player->x] == 48)
+			player->y -= player->dx * g->p_speed;
 	}
 	else if (!mlx_is_key_down(mlx, MLX_KEY_Q)
 		&& mlx_is_key_down(mlx, MLX_KEY_E))
 	{
-		player->x -= player->dy * P_SPEED;
-		player->y += player->dx * P_SPEED;
+		if (g->map->map[(int)player->y] \
+			[(int)(player->x - (0.2 * player->dy))] == 48)
+			player->x -= player->dy * g->p_speed;
+		if (g->map->map[(int)(player->y + (0.2 * player->dx))] \
+			[(int)player->x] == 48)
+			player->y += player->dx * g->p_speed;
 	}
 }
 
-void	ft_player_turn(mlx_t *mlx, t_pos *player)
+void	ft_player_turn(mlx_t *mlx, t_pos *player, t_game *g)
 {
 	if (mlx_is_key_down(mlx, MLX_KEY_A) && !mlx_is_key_down(mlx, MLX_KEY_D))
-		player->angle -= P_SPEED / 4;
+		player->angle -= g->pt_speed / 4;
 	else if (!mlx_is_key_down(mlx, MLX_KEY_A)
 		&& mlx_is_key_down(mlx, MLX_KEY_D))
-		player->angle += P_SPEED / 4;
+		player->angle += g->pt_speed / 4;
 	player->angle = ft_fixangle(player->angle);
 }
 
@@ -97,14 +123,4 @@ double	ft_fixangle(double angle)
 	else if (angle > M_PI * 2)
 		angle -= (M_PI * 2);
 	return (angle);
-}
-
-float	ft_degtorad(float deg)
-{
-	return (deg * M_PI / 180);
-}
-
-float	ft_radtodeg(float rad)
-{
-	return (rad * (180 / M_PI));
 }
