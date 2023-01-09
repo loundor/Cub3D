@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:17:25 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/02 13:53:56 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/09 19:14:53 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*ft_get_struct(void *data)
 	if (!ft_strncmp(data, "player", 7))
 		return ((t_pos *)g->player);
 	if (!ft_strncmp(data, "window", 7))
-		return ((t_img *)g->img);
+		return ((mlx_image_t *)g->img);
 	if (!ft_strncmp(data, "map", 4))
 		return ((t_map *)g->map);
 	return (NULL);

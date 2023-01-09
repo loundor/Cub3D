@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:58:09 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/07 11:53:38 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/09 22:03:46 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,23 @@
 static void	ft_add_color_texture(unsigned char *rgba,
 	t_map *map, int id)
 {
-	map->color[id] = rgba[3] << 24 | rgba[2] << 16 | rgba[1] << 8 | rgba[0];
-	map->texture[id] = NULL;
+	if (map->texture[id] && map->texture[id]->height > 1)
+			mlx_delete_texture(map->texture[id]);
+	else if (map->texture[id])
+	{
+		free(map->texture[id]->pixels);
+		free(map->texture[id]);
+	}
+	map->texture[id] = (mlx_texture_t *) malloc(sizeof(mlx_texture_t));
+	map->texture[id]->bytes_per_pixel = 4;
+	map->texture[id]->height = 1;
+	map->texture[id]->width = 1;
+	map->texture[id]->pixels = (uint8_t *) malloc(sizeof(uint8_t) * 4);
+	map->texture[id]->pixels[0] = (uint8_t)rgba[0];
+	map->texture[id]->pixels[1] = (uint8_t)rgba[1];
+	map->texture[id]->pixels[2] = (uint8_t)rgba[2];
+	map->texture[id]->pixels[3] = (uint8_t)rgba[3];
+	map->color[id] = map->texture[id];
 	return ;
 }
 
@@ -66,8 +81,9 @@ static int	ft_putarg_in(char *line, t_map *map, int id)
 		file[i] = 0;
 		while (--i >= 0)
 			file[i] = line[i];
-		map->texture[id] = mlx_load_png(file);
-		map->color[id] = 0;
+		if (!ft_strcmp(&file[ft_strlen(file) - 4], ".png") ||
+			!ft_strcmp(&file[ft_strlen(file) - 4], ".PNG"))
+			map->texture[id] = mlx_load_png(file);
 		ft_free_str(file);
 		if (map->texture[id] == NULL)
 			exit(1 + (0 * ft_error(NEX_FILE)));

@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/09 12:21:52 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/09 21:39:44 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,13 @@ typedef struct s_pos
 	double			dy;
 }	t_pos;
 
-typedef struct s_img
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		width;
-	int		heihgt;
-}	t_img;
-
 typedef struct s_map
 {
 	int				size_x;
 	int				size_y;
 	char			**map;
 	mlx_texture_t	*texture[6];
-	unsigned int	color[6];
-	mlx_image_t		*img[6];
+	mlx_texture_t	*color[6];
 }	t_map;
 
 typedef struct s_ray
@@ -88,7 +76,6 @@ typedef struct s_ray
 typedef struct s_game
 {
 	void			*mlx;
-	void			*win;
 	double			step;
 	double			scale;
 	float			fov;
@@ -103,16 +90,18 @@ typedef struct s_game
 
 void	ft_sum_ray(t_game *g);
 void	ft_draw(t_game *g);
-void	ft_fill_img(void *pixels, unsigned int fill, size_t s, size_t e);
+void	ft_fill_img(void *pixels, void *fill, size_t s, size_t e);
 
 int		ft_init_struct(t_game *g, t_map *map, t_pos *player);
 void	window_init(t_game *g);
 int		ft_file_name(char *file);
+
 int		ft_free_map(t_map *map);
 int		ft_free_str(char *str);
 int		ft_free_int(int *nbr);
 int		ft_free_tab(char **tab);
 int		ft_free_tab_int(int **tab);
+void 	ft_free_texture(t_map *m);
 
 void	hook(void *g);
 int		ft_import_map(char *file, t_game *base);
@@ -122,12 +111,10 @@ int		ft_file_exist(char *file);
 void	*ft_get_struct(void *data);
 
 int		ft_error(int value);
-void	ft_print_struct(t_game *g);
 
 void	ft_player_move_fb(mlx_t *mlx, t_pos *player, t_game *g);
 void	ft_player_turn(mlx_t *mlx, t_pos *player, t_game *g);
 void	ft_player_strafe(mlx_t *mlx, t_pos *player, t_game *g);
-
 
 double	ft_fixangle(double angle);
 int		ft_max(int i, int j);

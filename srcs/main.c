@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:39:23 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/09 09:41:10 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/09 20:49:25 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,11 @@ int	main(int ac, char **av)
 		return (1 + (0 * ft_error(MAP_ERROR)));
 	mlx_loop_hook(g.mlx, &hook, &g);
 	mlx_loop(g.mlx);
+	ft_free_texture(g.map);
+	mlx_delete_image(g.mlx, g.img);
+	mlx_close_window(g.mlx);
 	mlx_terminate(g.mlx);
-	//ft_free_base(&g);
+	ft_free_tab(g.map->map);
 	return (0);
 }
 
@@ -51,37 +54,11 @@ void	window_init(t_game *g)
 	g->mlx = mlx_init(SCREEN_X, SCREEN_Y, NAME, false);
 	g->aspect = (float)SCREEN_X / (float)SCREEN_Y;
 	if (!g->mlx)
-		exit (1);// + ft_free_window(g->mlx));
+		exit (1);
 	g->img = mlx_new_image(g->mlx, SCREEN_X, SCREEN_Y);
 	mlx_image_to_window(g->mlx, g->img, 0, 0);
 	g->fov = ((g->aspect >= 1.77) - (g->aspect < 1.77)) * \
 			sqrt(fabs(M_PI_4 * (g->aspect - 1.77) / 2)) + M_PI_2;
 	g->step = tan(g->fov / (SCREEN_X - 1));
 	g->scale = 1 / g->step;
-}
-
-void	ft_print_struct(t_game *g)
-{
-	int	i;
-	int	e;
-
-	printf("	mlx: %p\n\
-	win: %p\n\
-	scale: %f\n\
-	player x:%f - y: %f\n\
-	player angle: %f\n\
-	player pos: %c\n",
-		g->mlx, g->win, g->scale, g->player->x, g->player->y,
-		g->player->angle, g->player->positioned);
-	printf("FOV: %.0f\n", 114 * atan(g->step * (SCREEN_X / 2)));
-	printf("map x: %d - y: %d\n", g->map->size_x, g->map->size_y);
-	i = -1;
-	while (g->map->map[++i])
-	{
-		e = -1;
-		while (g->map->map[i][++e])
-			printf("%c ", g->map->map[i][e]);
-		printf("\n");
-	}
-	printf("map x: %d - y: %d\n", g->map->size_x, g->map->size_y);
 }

@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:42:07 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/09 12:21:54 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/09 21:25:28 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	ft_draw(t_game *g)
 	unsigned int	textures;
 
 	ray = 0;
-	ft_fill_img(g->img->pixels, g->map->color[5], 0,
+	ft_fill_img(g->img->pixels, g->map->texture[5]->pixels, 0,
 		g->img->width * g->img->height / 2);
-	ft_fill_img(g->img->pixels, g->map->color[4],
+	ft_fill_img(g->img->pixels, g->map->texture[4]->pixels,
 		g->img->width * g->img->height / 2,
 		g->img->width * g->img->height);
 	while (ray < SCREEN_X)
@@ -67,12 +67,14 @@ void	ft_draw(t_game *g)
 	}
 }
 
-void	ft_fill_img(void *pixels, unsigned int fill, size_t s, size_t e)
+void	ft_fill_img(void *pixels, void *fill, size_t s, size_t e)
 {
 	unsigned int	*array;
+	unsigned int	*tofill;
 	size_t			t;
 
 	array = pixels;
+	tofill = fill;
 	if (s > e)
 	{
 		t = e;
@@ -80,5 +82,5 @@ void	ft_fill_img(void *pixels, unsigned int fill, size_t s, size_t e)
 		s = t;
 	}
 	while (s < e)
-		array[s++] = fill;
+		array[s++] = *tofill;
 }

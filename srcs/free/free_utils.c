@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:44:22 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/09 12:21:54 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/09 21:55:19 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,26 @@ int	ft_free_tab_int(int **tab)
 		tab = 0;
 	}
 	return (0);
+}
+
+void 	ft_free_texture(t_map *m)
+{
+	int	id;
+
+	id = -1;
+	while (++id < 6)
+	{
+		if (m->color[id])
+		{
+			free(m->texture[id]->pixels);
+			free(m->texture[id]);
+			m->color[id] = NULL;
+			m->texture[id] = NULL;
+		}
+		if (m->texture[id])
+		{
+			mlx_delete_texture(m->texture[id]);
+			m->texture[id] = NULL;
+		}
+	}
 }
