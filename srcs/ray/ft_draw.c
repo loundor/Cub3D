@@ -6,12 +6,11 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:42:07 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/08 21:56:49 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/09 12:21:54 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
 
 void	ft_draw_scaled(t_game *g, t_ray *ray, mlx_texture_t *texture,
 	unsigned int col)
@@ -37,10 +36,14 @@ void	ft_draw_scaled(t_game *g, t_ray *ray, mlx_texture_t *texture,
 	{
 		while (error >= ray->height && ++y)
 			error -= ray->height;
-		g->img->pixels[(col * 4) + (g->img->width * dst_y * 4)] = texture->pixels[(y * texture->width) * 4 + x * 4];
-		g->img->pixels[(col * 4) + (g->img->width * dst_y * 4) + 1] = texture->pixels[(y * texture->width) * 4 + x * 4 + 1];
-		g->img->pixels[(col * 4) + (g->img->width * dst_y * 4) + 2] = texture->pixels[(y * texture->width) * 4 + x * 4 + 2];
-		g->img->pixels[(col * 4) + (g->img->width * dst_y++ * 4) + 3] = texture->pixels[(y * texture->width) * 4 + x * 4 + 3];
+		g->img->pixels[(col * 4) + (g->img->width * dst_y * 4)]
+			= texture->pixels[(y * texture->width) * 4 + x * 4];
+		g->img->pixels[(col * 4) + (g->img->width * dst_y * 4) + 1]
+			= texture->pixels[(y * texture->width) * 4 + x * 4 + 1];
+		g->img->pixels[(col * 4) + (g->img->width * dst_y * 4) + 2]
+			= texture->pixels[(y * texture->width) * 4 + x * 4 + 2];
+		g->img->pixels[(col * 4) + (g->img->width * (dst_y++) * 4) + 3]
+			= texture->pixels[(y * texture->width) * 4 + x * 4 + 3];
 		error += texture->width;
 	}	
 }
@@ -64,10 +67,10 @@ void	ft_draw(t_game *g)
 	}
 }
 
-void ft_fill_img(void *pixels, unsigned int fill, size_t s, size_t e)
+void	ft_fill_img(void *pixels, unsigned int fill, size_t s, size_t e)
 {
-	unsigned int *array;
-	size_t	t;
+	unsigned int	*array;
+	size_t			t;
 
 	array = pixels;
 	if (s > e)

@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/07 18:16:19 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/09 12:21:52 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,7 @@ typedef struct s_game
 
 void	ft_sum_ray(t_game *g);
 void	ft_draw(t_game *g);
-void ft_fill_img(void *pixels, unsigned int fill, size_t s, size_t e);
-
+void	ft_fill_img(void *pixels, unsigned int fill, size_t s, size_t e);
 
 int		ft_init_struct(t_game *g, t_map *map, t_pos *player);
 void	window_init(t_game *g);

@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 10:55:17 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/07 10:55:23 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/09 09:37:31 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@ int	ft_max(int i, int j)
 {
 	if (i < j)
 		return (j);
-	return i;
+	return (i);
 }
