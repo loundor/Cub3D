@@ -6,26 +6,32 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:42:07 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/10 18:50:27 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/10 19:37:00 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-/* static void	ft_draw_col(mlx_texture_t *texture, int col, int dst_y, int x
-	, int y)
+static void	ft_draw_col(mlx_texture_t *texture, int col, int dst_y, t_point point)
 {
+	unsigned int	x;
+	unsigned int	y;
+	t_game			*g;
+
+	x = point.x;
+	y = point.y;
+	g = (t_game *)ft_get_struct(NULL);
 	g->img->pixels[(col * 4) + (g->img->width * dst_y * 4)]
 		= texture->pixels[(y * texture->width) * 4 + x * 4];
 	g->img->pixels[(col * 4) + (g->img->width * dst_y * 4) + 1]
 		= texture->pixels[(y * texture->width) * 4 + x * 4 + 1];
 	g->img->pixels[(col * 4) + (g->img->width * dst_y * 4) + 2]
 		= texture->pixels[(y * texture->width) * 4 + x * 4 + 2];
-	g->img->pixels[(col * 4) + (g->img->width * (dst_y++) * 4) + 3]
+	g->img->pixels[(col * 4) + (g->img->width * dst_y * 4) + 3]
 		= texture->pixels[(y * texture->width) * 4 + x * 4 + 3];
-} */
+}
 
-void	ft_draw_scaled(t_game *g, t_ray *ray, mlx_texture_t *texture,
+static void	ft_draw_scaled(t_ray *ray, mlx_texture_t *texture,
 	unsigned int col)
 {
 	const unsigned int	x = ray->texture_pos * texture->width;
@@ -49,14 +55,8 @@ void	ft_draw_scaled(t_game *g, t_ray *ray, mlx_texture_t *texture,
 	{
 		while (error >= ray->height && ++y)
 			error -= ray->height;
-		g->img->pixels[(col * 4) + (g->img->width * dst_y * 4)]
-			= texture->pixels[(y * texture->width) * 4 + x * 4];
-		g->img->pixels[(col * 4) + (g->img->width * dst_y * 4) + 1]
-			= texture->pixels[(y * texture->width) * 4 + x * 4 + 1];
-		g->img->pixels[(col * 4) + (g->img->width * dst_y * 4) + 2]
-			= texture->pixels[(y * texture->width) * 4 + x * 4 + 2];
-		g->img->pixels[(col * 4) + (g->img->width * (dst_y++) * 4) + 3]
-			= texture->pixels[(y * texture->width) * 4 + x * 4 + 3];
+		ft_draw_col(texture, col, dst_y, (t_point){x,y});
+		dst_y++;
 		error += texture->width;
 	}	
 }
@@ -75,7 +75,7 @@ void	ft_draw(t_game *g)
 	while (ray < SCREEN_X)
 	{
 		textures = ft_strchr("NSWE", g->ray[ray].dir) - "NSWE";
-		ft_draw_scaled(g, &g->ray[ray], g->map->texture[textures], ray);
+		ft_draw_scaled(&g->ray[ray], g->map->texture[textures], ray);
 		ray++;
 	}
 }
