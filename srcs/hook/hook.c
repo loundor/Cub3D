@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 17:28:38 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/09 12:21:55 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:25:16 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,6 @@ void	hook(void *base)
 	g->player->dy = sin(g->player->angle);
 	ft_sum_ray(g);
 	ft_draw(g);
-	
-	//printf("player x:%f - y: %f\n player angle: %f\n", g->player->x, g->player->y, g->player->angle);
-
-//	for (int i = 0; i < SCREEN_X; i++)
-//	{
-//		printf("RAY %d\n", i);
-//		printf("heigth: %u\n", g->ray[512].height);
-	//	printf("texture: %f\n", g->ray[512].texture_pos);
-	//	printf("dir: %c\n\n", g->ray[512].dir);
-//	}
 }
 
 void	ft_player_move_fb(mlx_t *mlx, t_pos *player, t_game *g)

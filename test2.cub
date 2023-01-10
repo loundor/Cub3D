@@ -1,8 +1,8 @@
 NO         ./textures/LAVA3.png
 SO     ./textures/LAVA3.png
 WE ./textures/LAVA3.png
-EA ./textures/LAVA3.png
-EA ./textures/LAVA3.png
+EA ./textures/WLL.png
+
 
 F 154, 105, 55, 255
 

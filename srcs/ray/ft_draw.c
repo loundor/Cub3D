@@ -6,11 +6,24 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:42:07 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/09 21:25:28 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/10 12:13:25 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+static void	ft_draw_col(mlx_texture_t *texture, int col, int dst_y, int x
+	, int y)
+{
+	g->img->pixels[(col * 4) + (g->img->width * dst_y * 4)]
+		= texture->pixels[(y * texture->width) * 4 + x * 4];
+	g->img->pixels[(col * 4) + (g->img->width * dst_y * 4) + 1]
+		= texture->pixels[(y * texture->width) * 4 + x * 4 + 1];
+	g->img->pixels[(col * 4) + (g->img->width * dst_y * 4) + 2]
+		= texture->pixels[(y * texture->width) * 4 + x * 4 + 2];
+	g->img->pixels[(col * 4) + (g->img->width * (dst_y++) * 4) + 3]
+		= texture->pixels[(y * texture->width) * 4 + x * 4 + 3];
+}
 
 void	ft_draw_scaled(t_game *g, t_ray *ray, mlx_texture_t *texture,
 	unsigned int col)

@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/09 21:39:44 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:27:48 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ int		ft_free_str(char *str);
 int		ft_free_int(int *nbr);
 int		ft_free_tab(char **tab);
 int		ft_free_tab_int(int **tab);
-void 	ft_free_texture(t_map *m);
+void	ft_free_texture(t_map *m);
+int		ft_delete_texture(mlx_texture_t *texture);
 
 void	hook(void *g);
 int		ft_import_map(char *file, t_game *base);

@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:58:09 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/09 22:03:46 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:26:15 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,7 @@
 static void	ft_add_color_texture(unsigned char *rgba,
 	t_map *map, int id)
 {
-	if (map->texture[id] && map->texture[id]->height > 1)
-			mlx_delete_texture(map->texture[id]);
-	else if (map->texture[id])
-	{
-		free(map->texture[id]->pixels);
-		free(map->texture[id]);
-	}
+	ft_delete_texture(map->texture[id]);
 	map->texture[id] = (mlx_texture_t *) malloc(sizeof(mlx_texture_t));
 	map->texture[id]->bytes_per_pixel = 4;
 	map->texture[id]->height = 1;
@@ -81,9 +75,10 @@ static int	ft_putarg_in(char *line, t_map *map, int id)
 		file[i] = 0;
 		while (--i >= 0)
 			file[i] = line[i];
-		if (!ft_strcmp(&file[ft_strlen(file) - 4], ".png") ||
-			!ft_strcmp(&file[ft_strlen(file) - 4], ".PNG"))
-			map->texture[id] = mlx_load_png(file);
+		if ((!ft_strcmp(&file[ft_strlen(file) - 4], ".png")
+				|| !ft_strcmp(&file[ft_strlen(file) - 4], ".PNG"))
+			&& !ft_delete_texture(map->texture[id]))
+				map->texture[id] = mlx_load_png(file);
 		ft_free_str(file);
 		if (map->texture[id] == NULL)
 			exit(1 + (0 * ft_error(NEX_FILE)));

@@ -21,7 +21,8 @@ MAP			=	map.c \
 				import_param.c \
 				import_map.c
 FREE		=	free_map.c \
-				free_utils.c
+				free_utils.c \
+				free_utils_2.c
 UTILS		=	ft_get_struct.c \
 				ft_file_exist.c \
 				ft_file_name.c \
