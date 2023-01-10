@@ -6,11 +6,34 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:54:57 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/09 10:02:34 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/10 19:24:13 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+static void ft_test_map(char **map, int max_x, int max_y)
+{
+	int	y;
+	int	x;
+
+	y = -1;
+	while (map[++y])
+	{
+		x = -1;
+		if (y == 0 || y == max_y - 1)
+		{
+			while (map[y][++x])
+				if (map[y][x] != '1')
+					exit(ft_error(MAP_ERROR) \
+						+ (0 * ft_free_map((t_map *)ft_get_struct("map"))));
+			continue;
+		}
+		if (map[y][0] != '1' && map[y][max_x -1] != '1')
+			exit(ft_error(MAP_ERROR) \
+						+ (0 * ft_free_map((t_map *)ft_get_struct("map"))));
+	}
+}
 
 static int	ft_set_map(t_game *g, char *line, int onmap)
 {
@@ -74,5 +97,6 @@ int	ft_import_map(char *file, t_game *g)
 		return (4 + (0 * write(1, "Error: Space line in map.\n", 26)));
 	if (w_map < 3)
 		return (MAP_ERROR);
+	ft_test_map(g->map->map, g->map->size_x, g->map->size_y);
 	return (0);
 }

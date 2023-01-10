@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:25:43 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/09 10:05:15 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/10 19:22:46 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	ft_input_line_map(char **line, char **create, int *l, int *c)
 		g->y = *l + 0.5;
 	}
 	else if (**line == ' ' && *line[0]++)
-		create[*l][*c] = '0';
+		create[*l][*c] = '1';
 	else
 		create[*l][*c] = *line[0]++;
 	return ;
@@ -57,12 +57,12 @@ static int	ft_realloc_map(t_map *map, char *line, char **create)
 			exit(1);
 		ft_bzero(create[l], map->size_x + 1);
 		if (l < map->size_y - 1)
-			ft_memset(create[l], 48, map->size_x);
+			ft_memset(create[l], '1', map->size_x); // to try 0 in base
 		c = -1;
 		while (l < map->size_y - 1 && map->map[l][++c])
 			create[l][c] = map->map[l][c];
 	}
-	ft_memset(create[--l], '0', map->size_x);
+	ft_memset(create[--l], '1', map->size_x); // to try...
 	while (*line)
 		ft_input_line_map(&line, create, &l, &c);
 	map->map = ft_free_tab(map->map) + create;
@@ -85,12 +85,17 @@ static int	ft_map_first(t_map *map, char *line, char **create)
 	c = -1;
 	while (*line)
 	{
-		if ((*line == ' ' || *line == 'N' || *line == 'S'
+		if ((*line == 'N' || *line == 'S'
 				|| *line == 'E' || *line == 'W') && line++)
 		{
 			create[0][++c] = '0';
 			continue ;
 		}
+		else if (*line == ' ' &&  line++)
+		{
+			create[0][++c] = '1';
+			continue ;
+		}		
 		create[0][++c] = *line++;
 	}
 	map->map = create;
