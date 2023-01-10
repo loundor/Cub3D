@@ -6,11 +6,11 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:44:22 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/02 00:37:58 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/10 12:03:20 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../../includes/cub3d.h"
 
 int	ft_free_str(char *str)
 {

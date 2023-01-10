@@ -1,63 +1,70 @@
-NAME		=	cub3d
+NAME		=	cub3D
+LIBFT		=	libft.a
+MLXGL		=	libmlx42.a
 CC			=	gcc
 FLAGS		=	-Wall -Werror -Wextra ${F_EXTRA}
 F_EXTRA		=	-g -fsanitize=address
 LIBRARY		=	./libft/libft.a ./MLX42/libmlx42.a  ${LIB_LINUX}
-LIB_LINUX	=	-ldl -lglfw -pthread -lm #${LIB_MAC}
+LIB_LINUX	=	-ldl -lglfw -pthread -lm ${LIB_MAC}
 LIB_MAC		=	-L "/Users/${USER}/.brew/opt/glfw/lib/"
 INCLUDE		=	-I./include -I./libft -I./MLX42/include
 SFOLDER		=	./srcs/
 SRCS		=	main.c \
-				debug.c \
-				ft_msg.c \
+				error.c \
 				$(addprefix map/, ${MAP}) \
-				$(addprefix free/, ${FREE}) \
-				$(addprefix set/, ${SET}) \
-				$(addprefix utils/, ${UTILS}) \
 				$(addprefix hook/, ${HOOK}) \
-				$(addprefix draw/, ${DRAW})
+				$(addprefix free/, ${FREE}) \
+				$(addprefix ray/, ${RAY}) \
+				$(addprefix utils/, ${UTILS})
+HOOK		=	hook.c
 MAP			=	map.c \
 				import_param.c \
-				import_map.c \
-				texture_param.c
-FREE		=	free_base.c \
-				free_map.c \
-				free_obj.c \
+				import_map.c
+FREE		=	free_map.c \
 				free_utils.c \
-				free_window.c
-SET			=	player.c \
-				enemy.c \
-				ammo.c \
-				items.c \
-				guns.c \
-				map.c \
-				window.c
+				free_utils_2.c
 UTILS		=	ft_get_struct.c \
-				ft_test_file_if_exist.c \
-				degrad.c \
-				ft_fixangle.c
-HOOK		=	keyboard.c
-DRAW		=	minimap.c \
-				ft_draw_line.c \
-				ft_draw_circle.c \
-				ray.c
-OBJS		=	$(addprefix ${SFOLDER}, ${SRCS: .c=.o})
+				ft_file_exist.c \
+				ft_file_name.c \
+				ft_max.c
+RAY			=	ft_sum_ray.c \
+				ft_draw.c
+OBJS		=	$(addprefix ${SFOLDER}, ${SRCS:.c=.o})
 RM			=	rm -rf
 
-$(NAME)		:	${OBJS}
+.c.o	:
+			@$(CC) $(FLAGS) -c $(HEADER) $< $ -o ${<:.c=.o}
+
+$(NAME)		:	${LIBFT} ${MLXGL} $(OBJS)
 				@echo Linking 🔗
 				@${CC} ${FLAGS} ${OBJS} ${INCLUDES} ${LIBRARY} -o $@
 				@echo Making ⚒
 				@echo "\033[0;32m-= Ready to play! 👾 =- \033[0;0m"
 
-all			:	${NAME}
+$(LIBFT) 	:
+				@echo "Make of libft...🔥"
+				@make -s -C ./libft
 
-#re			:	fclean all
+$(MLXGL)	:
+				@echo "Make of minilibx 42 Codam...🔥"
+				@make -s -C ./MLX42
+
+all			:	$(LIBFT) $(MLXGL) $(NAME)
+
+re			:	fclean all
 
 clean		:
-				${RM} ${OBJS}
+				@echo "Cleaning object... 🗑"
+				@$(RM) $(OBJS)
+				@echo "Cleaning object libft...🗑"
+				@make -s -C ./libft clean
+				@echo "Cleaning object MinilibX 42 Codam...🗑"
+				@make -s -C ./MLX42 clean
 
-#fclean		:	clean
-#				${RED} ${RM} ${NAME} ${RST}	
+fclean		:	clean
+				@$(RM) $(NAME)
+				@make -C ./libft fclean
+				@make -C ./MLX42 fclean
+				@echo "Full clean finish... 🧹"
 
 .PHONY		:	${NAME} all clean fclean re

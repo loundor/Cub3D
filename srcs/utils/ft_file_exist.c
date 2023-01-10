@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_map.c                                         :+:      :+:    :+:   */
+/*   ft_file_exist.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/01 17:04:54 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/02 12:42:52 by stissera         ###   ########.fr       */
+/*   Created: 2023/01/02 13:29:47 by stissera          #+#    #+#             */
+/*   Updated: 2023/01/02 13:30:08 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int	ft_free_map(t_map *map)
+int	ft_file_exist(char *file)
 {
-	ft_free_tab(map->map);
-	return (0);
+	int	fd;
+
+	fd = open(file, O_RDONLY);
+	if (fd)
+		return (close(fd));
+	return (-1);
 }

@@ -5,60 +5,60 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/30 23:28:50 by stissera          #+#    #+#             */
-/*   Updated: 2022/11/09 15:26:59 by stissera         ###   ########.fr       */
+/*   Created: 2023/01/02 10:39:23 by stissera          #+#    #+#             */
+/*   Updated: 2023/01/09 20:49:25 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../includes/cub3d.h"
 
 int	main(int ac, char **av)
 {
-	t_base	base;
+	t_game	g;
+	t_map	map;
+	t_pos	player;
 
+	g = (t_game){0};
+	ft_init_struct(&g, &map, &player);
+	ft_get_struct(&g);
 	if (ac != 2)
 		return (1 + (0 * ft_error(ARG)));
 	if (ft_file_name(av[1]))
 		return (1 + (0 * write(1, "Error file name! Need .cub\n", 27)));
-	if (ft_s_window(&base))
+	window_init(&g);
+	if (ft_import_map (av[1], &g))
 		return (1 + (0 * ft_error(MAP_ERROR)));
-	else
-	{
-		base.window->mlx = mlx_init(SCREEN_X, SCREEN_Y, GAME_NAME, true);
-		if (!base.window->mlx)
-			return (1 + ft_free_window(base.window));
-	}
-	ft_get_struct(&base);
-	if (ft_strart_screen(&base, av))
-		return (1);
-	mlx_terminate(base.window->mlx);
-	ft_free_base(&base);
+	mlx_loop_hook(g.mlx, &hook, &g);
+	mlx_loop(g.mlx);
+	ft_free_texture(g.map);
+	mlx_delete_image(g.mlx, g.img);
+	mlx_close_window(g.mlx);
+	mlx_terminate(g.mlx);
+	ft_free_tab(g.map->map);
 	return (0);
 }
 
-int	ft_strart_screen(t_base *base, char **av)
+int	ft_init_struct(t_game *g, t_map *map, t_pos *player)
 {
-	// mlx_mouse_hook();
-	//mlx_key_hook(base->window->mlx, &hook, base->window->mlx);
-	mlx_loop_hook(base->window->mlx, &hook, base->window->mlx);
-	if (ft_s_player(base) || ft_s_enemy(base) || ft_s_guns(base)
-		|| ft_s_ammo(base) || ft_s_items(base) || ft_s_map(base))
-		return (1 + (0 * ft_error(INIT_BASE) * ft_free_base(base)));
-	if (ft_import_map (av[1], base))
-		return (1 + (0 * ft_error(MAP_ERROR) * ft_free_base(base)));
-	ft_draw_minimap(base);
-	mlx_loop(base->window->mlx);
+	*player = (t_pos){0};
+	*map = (t_map){0};
+	g->player = player;
+	g->map = map;
+	g->p_speed = 0.1;
+	g->pt_speed = 0.1;
 	return (0);
 }
 
-int	ft_file_name(char *file)
+void	window_init(t_game *g)
 {
-	int	i;
-
-	i = 0;
-	while (file && file[i])
-		i++;
-	if (ft_strncmp(&file[i - 4], ".cub", 5))
-		return (1);
-	return (0);
+	g->mlx = mlx_init(SCREEN_X, SCREEN_Y, NAME, false);
+	g->aspect = (float)SCREEN_X / (float)SCREEN_Y;
+	if (!g->mlx)
+		exit (1);
+	g->img = mlx_new_image(g->mlx, SCREEN_X, SCREEN_Y);
+	mlx_image_to_window(g->mlx, g->img, 0, 0);
+	g->fov = ((g->aspect >= 1.77) - (g->aspect < 1.77)) * \
+			sqrt(fabs(M_PI_4 * (g->aspect - 1.77) / 2)) + M_PI_2;
+	g->step = tan(g->fov / (SCREEN_X - 1));
+	g->scale = 1 / g->step;
 }

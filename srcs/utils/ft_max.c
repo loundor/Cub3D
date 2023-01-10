@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_map.c                                         :+:      :+:    :+:   */
+/*   ft_max.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/01 17:04:54 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/02 12:42:52 by stissera         ###   ########.fr       */
+/*   Created: 2023/01/07 10:55:17 by stissera          #+#    #+#             */
+/*   Updated: 2023/01/09 09:37:31 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
-
-int	ft_free_map(t_map *map)
+int	ft_max(int i, int j)
 {
-	ft_free_tab(map->map);
-	return (0);
+	if (i < j)
+		return (j);
+	return (i);
 }
