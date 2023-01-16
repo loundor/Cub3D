@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/16 15:36:28 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:29:38 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,5 +134,8 @@ int				ft_max(int i, int j);
 mlx_texture_t	*ft_atexture(t_atexture *texture, mlx_texture_t *t);
 void			ft_atexture_init(t_game	*g);
 int				ft_free_atexture(t_map *map);
+
+void			mouse_aiming(t_game *g);
+void			ft_minimap(t_game *g);
 
 #endif

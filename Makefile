@@ -16,8 +16,10 @@ SRCS		=	main.c \
 				$(addprefix free/, ${FREE}) \
 				$(addprefix ray/, ${RAY}) \
 				$(addprefix utils/, ${UTILS}) \
-				$(addprefix texture/, ${TEXTURE})
-HOOK		=	hook.c
+				$(addprefix texture/, ${TEXTURE}) \
+				$(addprefix bonus/, ${BBONUS})
+HOOK		=	hook.c \
+				mouse_hook.c
 MAP			=	map.c \
 				import_param.c \
 				import_map.c
@@ -31,6 +33,7 @@ UTILS		=	ft_get_struct.c \
 RAY			=	ft_sum_ray.c \
 				ft_draw.c
 TEXTURE		=	ft_atexture.c
+BBONUS		=	ft_minimap.c
 OBJS		=	$(addprefix ${SFOLDER}, ${SRCS:.c=.o})
 RM			=	rm -rf
 
