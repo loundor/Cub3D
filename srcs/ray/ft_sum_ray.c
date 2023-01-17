@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:40:56 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/09 10:00:48 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/17 18:00:08 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ static t_pos	ray_inter_x(t_game *g, double x, double y)
 		inter.y = g->player->y + y * (g->player->x - (int)g->player->x);
 	while ((unsigned)inter.y < (unsigned)g->map->size_y && \
 			(unsigned)inter.x < (unsigned)g->map->size_x && \
-			g->map->map[(unsigned)inter.y][(unsigned)inter.x] != '1')
+			!(g->map->map[(unsigned)inter.y][(unsigned)inter.x] == '1' \
+			|| g->map->map[(unsigned)inter.y][(unsigned)inter.x] == 'T'))
 			inter = (t_pos){inter.x + x, inter.y + y, 0, 0, 0, 0};
+	inter.dx = inter.x;		
 	inter.x += (x < 0);
 	return (inter);
 }
@@ -40,8 +42,10 @@ static t_pos	ray_inter_y(t_game *g, double x, double y)
 		inter.x = g->player->x + x * (g->player->y - (int)g->player->y);
 	while ((unsigned)inter.y < (unsigned)g->map->size_y && \
 			(unsigned)inter.x < (unsigned)g->map->size_x && \
-			g->map->map[(unsigned)inter.y][(unsigned)inter.x] != '1')
+			!(g->map->map[(unsigned)inter.y][(unsigned)inter.x] == '1' \
+			|| g->map->map[(unsigned)inter.y][(unsigned)inter.x] == 'T'))
 		inter = (t_pos){inter.x + x, inter.y + y, 0, 0, 0, 0};
+	inter.dy = inter.y;
 	inter.y += (y < 0);
 	return (inter);
 }
@@ -63,11 +67,19 @@ static void	ray_sum(t_game *g, double angle, unsigned int ray)
 		g->player->dx * (y.x - g->player->x)
 		+ g->player->dy * (y.y - g->player->y), 0, 0, 0, 0};
 	if (dist.x < dist.y)
+	{
 		g->ray[ray] = (t_ray){(unsigned int)(g->scale / dist.x) & ~1,
 			x.y - (int)x.y, "EW"[x.x < g->player->x]};
+		if (g->map->map[(int)x.y][(int)x.x - 1] == 'T')
+			g->ray[ray].dir = 'T';
+	}
 	else
+	{
 		g->ray[ray] = (t_ray){(unsigned int)(g->scale / dist.y) & ~1,
 			y.x - (int)y.x, "SN"[y.y < g->player->y]};
+		if (y.x >= 0 && y.x < g->map->size_x && g->map->map[(int)y.y - 1][(int)y.x] == 'T')
+			g->ray[ray].dir = 'T';
+	}
 	if (g->ray[ray].dir == 'W' || g->ray[ray].dir == 'S')
 		g->ray[ray].texture_pos = 1. - g->ray[ray].texture_pos;
 }

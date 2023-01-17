@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/16 16:29:38 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/17 10:57:39 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ typedef struct s_map
 	int				size_x;
 	int				size_y;
 	char			**map;
-	mlx_texture_t	*texture[6];
-	mlx_texture_t	*color[6];
+	mlx_texture_t	*texture[7];
+	mlx_texture_t	*color[7];
 	t_atexture		*animed;
 }	t_map;
 

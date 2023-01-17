@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:34:36 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/16 15:41:48 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:21:31 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_atexture_init(t_game	*g)
 	g->map->animed->frame[1] = mlx_load_png("./textures/LAVA2.png");
 	g->map->animed->frame[2] = mlx_load_png("./textures/LAVA3.png");
 	g->map->animed->frame[3] = mlx_load_png("./textures/LAVA4.png");
+	g->map->texture[6] = g->map->animed->frame[0];
 }
 
 int	ft_free_atexture(t_map *map)

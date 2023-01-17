@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 17:28:38 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/16 16:27:27 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:18:43 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	hook(void *base)
 	if (mlx_is_key_down(g->mlx, MLX_KEY_Q)
 		|| mlx_is_key_down(g->mlx, MLX_KEY_E))
 		ft_player_strafe(g->mlx, g->player, g);
+	g->map->texture[6] = ft_atexture(g->map->animed, g->map->texture[6]);
 	mouse_aiming(g);
 	g->player->dx = cos(g->player->angle);
 	g->player->dy = sin(g->player->angle);
