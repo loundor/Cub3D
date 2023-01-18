@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:34:36 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/18 10:46:04 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/18 19:13:14 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,17 @@
 
 mlx_texture_t	*ft_atexture(t_atexture *texture, mlx_texture_t *t)
 {
-	static long		old;
 	long			clock;
 	mlx_texture_t	*ret;
 
 	gettimeofday(&texture->timer, NULL);
 	clock = (texture->timer.tv_sec * 1000) + (texture->timer.tv_usec / 1000);
-	if (clock - old > texture->n_time)
+	if (clock - texture->old > texture->n_time)
 	{
 		ret = texture->frame[texture->nframe++];
 		if (texture->nframe == texture->nbr_frame)
 			texture->nframe = 0;
-		old = clock;
+		texture->old = clock;
 		return (ret);
 	}
 	return (t);
@@ -48,6 +47,16 @@ void	ft_atexture_init(t_game	*g)
 	g->map->animed->frame[2] = mlx_load_png("./textures/watter/FWATER3.png");
 	g->map->animed->frame[3] = mlx_load_png("./textures/watter/FWATER4.png");
 	g->map->texture[6] = g->map->animed->frame[0];
+	g->map->texture[7] = mlx_load_png("./textures/DOOR3_6.png");
+	g->map->texture[8] = mlx_load_png("./textures/wall/W28_5.png");
+	g->map->texture[9] = mlx_load_png("./textures/wall/W28_6.png");
+	g->map->texture[10] = mlx_load_png("./textures/wall/W28_7.png");
+	g->map->texture[11] = mlx_load_png("./textures/wall/W28_8.png");
+	g->map->texture[12] = mlx_load_png("./textures/wall/W31_1.png");
+	g->map->texture[13] = mlx_load_png("./textures/wall/W32_1.png");
+	g->map->texture[14] = mlx_load_png("./textures/wall/W32_4.png");
+	g->map->texture[15] = mlx_load_png("./textures/wall/W33_5.png");
+	g->map->texture[16] = mlx_load_png("./textures/wall/W33_7.png");
 }
 
 int	ft_free_atexture(t_map *map)

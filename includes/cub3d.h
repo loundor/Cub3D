@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/18 15:03:51 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/18 19:28:29 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <math.h>
 # include <sys/time.h>
 # include <time.h>
-# define SCREEN_X 1024
-# define SCREEN_Y 768
+# define SCREEN_X 800
+# define SCREEN_Y 600
 # define SCALE 32
 # define NAME "CUB3D - stissera"
 # define P_SPEED 0.1
@@ -62,6 +62,7 @@ typedef struct s_pos
 typedef struct s_atexture
 {
 	struct timeval	timer;
+	long			old;
 	int				nbr_frame;
 	int				nframe;
 	long			n_time;
@@ -73,8 +74,8 @@ typedef struct s_map
 	int				size_x;
 	int				size_y;
 	char			**map;
-	mlx_texture_t	*texture[8];
-	mlx_texture_t	*color[8];
+	mlx_texture_t	*texture[18];
+	mlx_texture_t	*color[18];
 	t_atexture		*animed;
 }	t_map;
 

@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:42:07 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/17 17:08:25 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/18 19:31:33 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ void	ft_draw(t_game *g)
 		g->img->width * g->img->height);
 	while (ray < SCREEN_X)
 	{
-		textures = ft_strchr("NSWECFTD", g->ray[ray].dir) - "NSWECFTD";
+		textures = ft_strchr("NSWECFTD|}{PO:LKJ", \
+			g->ray[ray].dir) - "NSWECFTD|}{PO:LKJ";
 		ft_draw_scaled(&g->ray[ray], g->map->texture[textures], ray);
 		ray++;
 	}
