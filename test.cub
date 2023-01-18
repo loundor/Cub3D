@@ -1,7 +1,7 @@
-NO         ./textures/FLAT5_6.png
-SO     ./textures/WLL.png
-WE ./textures/HELL5_1.png
-EA ./textures/LAVA3.png
+NO         ./textures/WALL69_4.png
+SO     ./textures/WALL71_5.png
+WE ./textures/W28_8.png
+EA ./textures/W28_6.png
 
 F 0,255,124,241
 

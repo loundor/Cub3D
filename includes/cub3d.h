@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/17 10:57:39 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/18 08:43:54 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <errno.h>
 # include <math.h>
+# include <sys/time.h>
 # include <time.h>
 # define SCREEN_X 1024
 # define SCREEN_Y 768
@@ -60,7 +61,7 @@ typedef struct s_pos
 
 typedef struct s_atexture
 {
-	time_t			timer;
+	struct timeval	timer;
 	int				nbr_frame;
 	int				nframe;
 	long			n_time;

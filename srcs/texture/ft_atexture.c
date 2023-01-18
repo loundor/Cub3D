@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:34:36 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/17 17:21:31 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/18 09:06:44 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 mlx_texture_t	*ft_atexture(t_atexture *texture, mlx_texture_t *t)
 {
-	static bool		active = 0;
+	static long		old;
+	long			clock;
 	mlx_texture_t	*ret;
 
-	texture->timer = time(NULL);
-	if (texture->timer % texture->n_time == 0 && active == 0)
+	gettimeofday(&texture->timer, NULL);
+	clock = (texture->timer.tv_sec * 1000) + (texture->timer.tv_usec / 1000);
+	if (clock - old > texture->n_time)
 	{
 		ret = texture->frame[texture->nframe++];
 		if (texture->nframe == texture->nbr_frame)
 			texture->nframe = 0;
-		active = 1;
+		old = clock;
 		return (ret);
 	}
-	if (texture->timer % texture->n_time != 0)
-		active = 0;
 	return (t);
 }
 
@@ -37,24 +37,21 @@ void	ft_atexture_init(t_game	*g)
 	if (!g->map->animed)
 		exit (0 * ft_error(INIT_ALLOC));
 	g->map->animed->nbr_frame = 4;
-	g->map->animed->n_time = 2;
+	g->map->animed->n_time = 400;
 	g->map->animed->nframe = 0;
 	g->map->animed->frame = (mlx_texture_t **)malloc(sizeof(mlx_texture_t *)
 			* g->map->animed->nbr_frame);
 	if (!g->map->animed[0].frame)
 		exit (0 * ft_error(INIT_ALLOC));
-	g->map->animed->frame[0] = mlx_load_png("./textures/LAVA1.png");
-	g->map->animed->frame[1] = mlx_load_png("./textures/LAVA2.png");
-	g->map->animed->frame[2] = mlx_load_png("./textures/LAVA3.png");
-	g->map->animed->frame[3] = mlx_load_png("./textures/LAVA4.png");
+	g->map->animed->frame[0] = mlx_load_png("./textures/watter/FWATER1.png");
+	g->map->animed->frame[1] = mlx_load_png("./textures/watter/FWATER2.png");
+	g->map->animed->frame[2] = mlx_load_png("./textures/watter/FWATER3.png");
+	g->map->animed->frame[3] = mlx_load_png("./textures/watter/FWATER4.png");
 	g->map->texture[6] = g->map->animed->frame[0];
 }
 
 int	ft_free_atexture(t_map *map)
 {
-	int	i;
-
-	i = 0;
 	if (!map->animed)
 		return (0);
 	free(map->animed->frame);
