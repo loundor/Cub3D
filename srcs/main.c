@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:39:23 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/18 10:45:33 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:15:36 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ int	main(int ac, char **av)
 	window_init(&g);
 	if (ft_import_map (av[1], &g))
 		return (1 + (0 * ft_error(MAP_ERROR)));
+
+	g.map->texture[7] = mlx_load_png("./textures/DOOR3_6.png");
+
 	ft_atexture_init(&g);
 	mlx_loop_hook(g.mlx, &hook, &g);
 	mlx_loop(g.mlx);

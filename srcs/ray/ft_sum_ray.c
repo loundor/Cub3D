@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:40:56 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/18 10:37:10 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/18 14:58:24 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,14 @@ static t_pos	ray_inter_y(t_game *g, double x, double y)
 	return (inter);
 }
 
+static void	ft_select_type_texture(t_ray *ray, t_pos *x, t_pos *y)
+{
+	if (ft_strrchr("NS", ray->dir) && y->positioned != '1')
+		ray->dir = y->positioned;
+	if (ft_strrchr("EW", ray->dir) && x->positioned != '1')
+		ray->dir = x->positioned;
+}
+
 static void	ray_sum(t_game *g, double angle, unsigned int ray)
 {
 	t_pos	x;
@@ -80,9 +88,7 @@ static void	ray_sum(t_game *g, double angle, unsigned int ray)
 			y.x - (int)y.x, "SN"[y.y < g->player->y]};
 	if (g->ray[ray].dir == 'W' || g->ray[ray].dir == 'S')
 		g->ray[ray].texture_pos = 1. - g->ray[ray].texture_pos;
-	if ((ft_strrchr("NS", g->ray[ray].dir) && y.positioned == 'T') || \
-		(ft_strrchr("EW", g->ray[ray].dir) && x.positioned == 'T'))
-		g->ray[ray].dir = 'T';
+	ft_select_type_texture(&g->ray[ray], &x, &y);
 }
 
 void	ft_sum_ray(t_game *g)
