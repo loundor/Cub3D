@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:34:36 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/18 09:06:44 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/18 10:46:04 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,13 @@ void	ft_atexture_init(t_game	*g)
 
 int	ft_free_atexture(t_map *map)
 {
+	int	i;
+
+	i = -1;
 	if (!map->animed)
 		return (0);
+	while (++i < map->animed->nbr_frame)
+		mlx_delete_texture(map->animed->frame[i]);
 	free(map->animed->frame);
 	free(map->animed);
 	return (0);
