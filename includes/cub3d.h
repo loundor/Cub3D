@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/19 10:11:55 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:42:50 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,16 @@ enum e_type_err
 	BAD_COLOR = 0x40,
 	BAD_START = 0x80
 };
+
+typedef struct s_door
+{
+	struct s_door	*prev;
+	int				x;
+	int				y;
+	struct timeval	start_at;
+	int				close_time;
+	struct s_door	*next;
+}	t_door;
 
 typedef struct s_point
 {
@@ -99,6 +109,8 @@ typedef struct s_game
 	t_ray			ray[SCREEN_X];
 	double			p_speed;
 	double			pt_speed;
+	t_door			*door;
+	struct timeval	time;
 }	t_game;
 
 void			ft_sum_ray(t_game *g);
@@ -133,12 +145,13 @@ void			ft_player_strafe(mlx_t *mlx, t_pos *player, t_game *g);
 double			ft_fixangle(double angle);
 int				ft_max(int i, int j);
 
-mlx_texture_t	*ft_atexture(t_atexture *texture, mlx_texture_t *t);
+mlx_texture_t	*ft_atexture(t_atexture *texture, mlx_texture_t *t, t_game *g);
 void			ft_atexture_init(t_game	*g);
 int				ft_free_atexture(t_map *map);
 
 void			mouse_aiming(t_game *g);
 void			ft_minimap(t_game *g);
 void			ft_door(t_game *g);
+void			ft_check_door(t_game *g);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 17:28:38 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/19 13:45:59 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:50:08 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 static void	ft_hook_launch(t_game *g)
 {
-	g->map->texture[6] = ft_atexture(g->map->animed, g->map->texture[6]);
+	gettimeofday(&g->time, NULL);
+	g->map->texture[6] = ft_atexture(g->map->animed, g->map->texture[6], g);
 	mouse_aiming(g);
 	g->player->dx = cos(g->player->angle);
 	g->player->dy = sin(g->player->angle);
 	ft_door(g);
+	if (g->door)
+		ft_check_door(g);
 	ft_sum_ray(g);
 	ft_draw(g);
 	ft_minimap(g);

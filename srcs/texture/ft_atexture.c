@@ -6,19 +6,18 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:34:36 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/19 10:21:22 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/19 15:53:29 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-mlx_texture_t	*ft_atexture(t_atexture *texture, mlx_texture_t *t)
+mlx_texture_t	*ft_atexture(t_atexture *texture, mlx_texture_t *t, t_game *g)
 {
 	long			clock;
 	mlx_texture_t	*ret;
 
-	gettimeofday(&texture->timer, NULL);
-	clock = (texture->timer.tv_sec * 1000) + (texture->timer.tv_usec / 1000);
+	clock = (g->time.tv_sec * 1000) + (g->time.tv_usec / 1000);
 	if (clock - texture->old > texture->n_time)
 	{
 		ret = texture->frame[texture->nframe++];
