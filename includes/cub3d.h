@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/19 17:42:50 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/19 18:21:28 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,5 +153,6 @@ void			mouse_aiming(t_game *g);
 void			ft_minimap(t_game *g);
 void			ft_door(t_game *g);
 void			ft_check_door(t_game *g);
+void			ft_free_door(t_door *d);
 
 #endif

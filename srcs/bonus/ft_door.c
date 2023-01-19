@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:02 by tkempf-e          #+#    #+#             */
-/*   Updated: 2023/01/19 17:58:29 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/19 18:21:14 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,13 @@ void	ft_door(t_game *g)
 			(g->player->angle > M_PI_4 * 3 && g->player->angle < M_PI_4 * 5))
 			ft_open_door((int)g->player->y, (int)g->player->x - 1, g->map);
 	}
+}
+
+void	ft_free_door(t_door *d)
+{
+	if (!d)
+		return ;
+	if (d->next)
+		ft_free_door(d->next);
+	free(d);
 }

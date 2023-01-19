@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:39:23 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/19 14:56:06 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/19 18:18:12 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int ac, char **av)
 	mlx_close_window(g.mlx);
 	mlx_terminate(g.mlx);
 	ft_free_tab(g.map->map);
+	ft_free_door(g.door);
 	return (0);
 }
 
