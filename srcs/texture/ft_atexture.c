@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:34:36 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/18 19:13:14 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/19 10:21:22 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,11 @@ int	ft_free_atexture(t_map *map)
 	if (!map->animed)
 		return (0);
 	while (++i < map->animed->nbr_frame)
+	{
+		if (map->animed->frame[i] == map->texture[6])
+			map->texture[6] = NULL;
 		mlx_delete_texture(map->animed->frame[i]);
+	}
 	free(map->animed->frame);
 	free(map->animed);
 	return (0);

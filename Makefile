@@ -33,7 +33,8 @@ UTILS		=	ft_get_struct.c \
 RAY			=	ft_sum_ray.c \
 				ft_draw.c
 TEXTURE		=	ft_atexture.c
-BBONUS		=	ft_minimap.c
+BBONUS		=	ft_minimap.c \
+				ft_door.c
 OBJS		=	$(addprefix ${SFOLDER}, ${SRCS:.c=.o})
 RM			=	rm -rf
 

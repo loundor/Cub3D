@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 11:26:40 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/10 11:27:17 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/19 10:21:37 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_free_texture(t_map *m)
 	int	id;
 
 	id = -1;
-	while (++id < 6)
+	while (++id < 18)
 	{
 		if (m->color[id])
 		{
