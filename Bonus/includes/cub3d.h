@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/16 15:36:28 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/19 18:21:28 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <errno.h>
 # include <math.h>
+# include <sys/time.h>
 # include <time.h>
-# define SCREEN_X 1024
-# define SCREEN_Y 768
+# define SCREEN_X 800
+# define SCREEN_Y 600
 # define SCALE 32
 # define NAME "CUB3D - stissera"
 # define P_SPEED 0.1
@@ -42,6 +43,16 @@ enum e_type_err
 	BAD_START = 0x80
 };
 
+typedef struct s_door
+{
+	struct s_door	*prev;
+	int				x;
+	int				y;
+	struct timeval	start_at;
+	int				close_time;
+	struct s_door	*next;
+}	t_door;
+
 typedef struct s_point
 {
 	unsigned int	x;
@@ -60,7 +71,8 @@ typedef struct s_pos
 
 typedef struct s_atexture
 {
-	time_t			timer;
+	struct timeval	timer;
+	long			old;
 	int				nbr_frame;
 	int				nframe;
 	long			n_time;
@@ -72,8 +84,8 @@ typedef struct s_map
 	int				size_x;
 	int				size_y;
 	char			**map;
-	mlx_texture_t	*texture[6];
-	mlx_texture_t	*color[6];
+	mlx_texture_t	*texture[18];
+	mlx_texture_t	*color[18];
 	t_atexture		*animed;
 }	t_map;
 
@@ -97,6 +109,8 @@ typedef struct s_game
 	t_ray			ray[SCREEN_X];
 	double			p_speed;
 	double			pt_speed;
+	t_door			*door;
+	struct timeval	time;
 }	t_game;
 
 void			ft_sum_ray(t_game *g);
@@ -131,8 +145,14 @@ void			ft_player_strafe(mlx_t *mlx, t_pos *player, t_game *g);
 double			ft_fixangle(double angle);
 int				ft_max(int i, int j);
 
-mlx_texture_t	*ft_atexture(t_atexture *texture, mlx_texture_t *t);
+mlx_texture_t	*ft_atexture(t_atexture *texture, mlx_texture_t *t, t_game *g);
 void			ft_atexture_init(t_game	*g);
 int				ft_free_atexture(t_map *map);
+
+void			mouse_aiming(t_game *g);
+void			ft_minimap(t_game *g);
+void			ft_door(t_game *g);
+void			ft_check_door(t_game *g);
+void			ft_free_door(t_door *d);
 
 #endif
