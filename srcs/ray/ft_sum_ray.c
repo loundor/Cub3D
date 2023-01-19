@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:40:56 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/18 19:20:32 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/19 13:38:57 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_pos	ray_inter_x(t_game *g, double x, double y)
 		inter.y = g->player->y + y * (g->player->x - (int)g->player->x);
 	while ((unsigned)inter.y < (unsigned)g->map->size_y && \
 			(unsigned)inter.x < (unsigned)g->map->size_x && \
-			g->map->map[(unsigned)inter.y][(unsigned)inter.x] == '0')
+			(g->map->map[(unsigned)inter.y][(unsigned)inter.x] == '0' || g->map->map[(unsigned)inter.y][(unsigned)inter.x] == 'S'))
 			inter = (t_pos){inter.x + x, inter.y + y, 0, 0, 0, 0};
 	if ((unsigned)inter.y < (unsigned)g->map->size_y && \
 			(unsigned)inter.x < (unsigned)g->map->size_x)
@@ -45,7 +45,7 @@ static t_pos	ray_inter_y(t_game *g, double x, double y)
 		inter.x = g->player->x + x * (g->player->y - (int)g->player->y);
 	while ((unsigned)inter.y < (unsigned)g->map->size_y && \
 			(unsigned)inter.x < (unsigned)g->map->size_x && \
-			g->map->map[(unsigned)inter.y][(unsigned)inter.x] == '0')
+			(g->map->map[(unsigned)inter.y][(unsigned)inter.x] == '0' || g->map->map[(unsigned)inter.y][(unsigned)inter.x] == 'S'))
 		inter = (t_pos){inter.x + x, inter.y + y, 0, 0, 0, 0};
 	if ((unsigned)inter.y < (unsigned)g->map->size_y && \
 			(unsigned)inter.x < (unsigned)g->map->size_x)
@@ -58,9 +58,9 @@ static t_pos	ray_inter_y(t_game *g, double x, double y)
 
 static void	ft_select_type_texture(t_ray *ray, t_pos *x, t_pos *y)
 {
-	if (ft_strrchr("NS", ray->dir) && y->positioned != '1')
+	if (ft_strrchr("NS", ray->dir) && (y->positioned != '1' && y->positioned != 'S'))
 		ray->dir = y->positioned;
-	if (ft_strrchr("EW", ray->dir) && x->positioned != '1')
+	if (ft_strrchr("EW", ray->dir) &&( x->positioned != '1' && y->positioned != 'S'))
 		ray->dir = x->positioned;
 }
 
