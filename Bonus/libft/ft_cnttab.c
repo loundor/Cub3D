@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 23:26:30 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/20 15:13:24 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/20 15:14:35 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ size_t	ft_cnttab(char **array)
 
 	if (!array)
 		return (0);
-	
 	i = 0;
 	while (array[i] && array[i] != NULL)
 		i++;

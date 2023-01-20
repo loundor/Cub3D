@@ -6,13 +6,13 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:02 by tkempf-e          #+#    #+#             */
-/*   Updated: 2023/01/20 15:03:33 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:23:51 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	ft_check_door2(t_game *g, t_door **door, t_door *bak)
+int	ft_check_door2(t_game *g, t_door **door, t_door *bak)
 {
 	if (door[0]->next == NULL && door[0]->prev == NULL)
 	{
@@ -36,6 +36,9 @@ void	ft_check_door2(t_game *g, t_door **door, t_door *bak)
 		free(bak);
 		bak = NULL;
 	}
+	else
+		return (1);
+	return (0);
 }
 
 void	ft_check_door(t_game *g)
@@ -53,8 +56,8 @@ void	ft_check_door(t_game *g)
 			(int)g->player->y != door->y))
 		{
 			g->map->map[door->y][g->door->x] = 'D';
-			ft_check_door2(g, &door, bak);
-			if (door->prev != NULL && door->next == NULL)
+			if (ft_check_door2(g, &door, bak) && door->prev != NULL
+				&& door->next == NULL)
 			{
 				door->prev->next = NULL;
 				free(door);

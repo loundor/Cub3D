@@ -67,4 +67,6 @@ fclean		:	clean
 				@make -C ./MLX42 fclean
 				@echo "Full clean finish... 🧹"
 
-.PHONY		:	${NAME} all clean fclean re
+bonus		:	@make -s -C ../Bonus/make
+
+.PHONY		:	${NAME} all clean fclean re bonus
