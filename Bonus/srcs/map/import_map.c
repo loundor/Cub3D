@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:25:43 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/17 09:24:35 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/20 14:41:17 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ static int	ft_realloc_map(t_map *map, char *line, char **create)
 			exit(1);
 		ft_bzero(create[l], map->size_x + 1);
 		if (l < map->size_y - 1)
-			ft_memset(create[l], '1', map->size_x); // to try 0 in base
+			ft_memset(create[l], '1', map->size_x);
 		c = -1;
 		while (l < map->size_y - 1 && map->map[l][++c])
 			create[l][c] = map->map[l][c];
 	}
-	ft_memset(create[--l], '1', map->size_x); // to try...
+	ft_memset(create[--l], '1', map->size_x);
 	while (*line)
 		ft_input_line_map(&line, create, &l, &c);
 	map->map = ft_free_tab(map->map) + create;
@@ -87,16 +87,11 @@ static int	ft_map_first(t_map *map, char *line, char **create)
 	{
 		if ((*line == 'N' || *line == 'S'
 				|| *line == 'E' || *line == 'W') && line++)
-		{
 			create[0][++c] = '0';
-			continue ;
-		}
-		else if (*line == ' ' &&  line++)
-		{
+		else if (*line == ' ' && line++)
 			create[0][++c] = '1';
-			continue ;
-		}		
-		create[0][++c] = *line++;
+		else
+			create[0][++c] = *line++;
 	}
 	map->map = create;
 	return (0);
@@ -115,8 +110,12 @@ int	ft_map_create(char *line, t_map *map)
 			map->size_x = i;
 		map->size_y++;
 		if (map->map || ft_map_first(map, line, NULL))
+		{
+			if (line[0] == '\n')
+				exit(1 + (0 * ft_error(MAP_ERROR)));
 			if (ft_realloc_map(map, line, NULL))
 				exit(1 + (0 * ft_error(INIT_ALLOC)));
+		}
 		return (1);
 	}
 	return (0);

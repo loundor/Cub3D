@@ -1,7 +1,7 @@
-NO ./assets/wall_fantasy.xpm
-SO ./assets/wall_fantasy2.xpm
-WE ./assets/wall_fantasy3.xpm
-./assets/wall_fantasy4.xpm EA
+NO ./textures/S1.png
+SO ./textures/S2.png
+WE ./textures/S3.png
+./textures/S4.png EA
 F 65,103,64
 C 2,11,83
 111111

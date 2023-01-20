@@ -1,7 +1,7 @@
-NO ./assets/wall_fantasy.xpm
-SO ./assets/wall_fantasy2.xpm
-WE ./assets/nothing.xpm
-EA ./assets/wall_fantasy4.xpm
+NO ./textures/S1.png
+SO ./textures/S2.png
+WE ./textures/NONE.png
+EA ./textures/S4.png
 F 220,100,0
 C 225,30,0
 111111

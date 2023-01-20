@@ -1,10 +1,10 @@
   
-NO ./assets/wall_fantasy.xpm
-SO ./assets/wall_fantasy2.xpm
+NO ./textures/S1.png 
+SO ./textures/S2.png   
 
-  
-WE ./assets/wall_fantasy3.xpm
-EA ./assets/wall_fantasy4.xpm    
+    
+WE ./textures/S3.png    
+EA ./textures/S4.png  
   
 F 65,103,64
        

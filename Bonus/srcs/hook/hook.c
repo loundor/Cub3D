@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 17:28:38 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/19 17:50:08 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:37:24 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,11 @@ void	ft_player_move_fb(mlx_t *mlx, t_pos *player, t_game *g)
 	if (mlx_is_key_down(mlx, MLX_KEY_S) && !mlx_is_key_down(mlx, MLX_KEY_W))
 	{
 		if (g->map->map[(int)player->y] \
-			[(int)(player->x - (0.5 * player->dx))] == 48 || \
-			g->map->map[(int)player->y] \
-			[(int)(player->x - (0.5 * player->dx))] == 83)
+			[(int)(player->x - (0.5 * player->dx))] == 48 || g->map->map[\
+			(int)player->y][(int)(player->x - (0.5 * player->dx))] == 83)
 			player->x -= player->dx * g->p_speed;
-		if (g->map->map[(int)(player->y - (0.5 * player->dy))] \
-			[(int)player->x] == 48 || \
-			g->map->map[(int)(player->y - (0.5 * player->dy))] \
+		if (g->map->map[(int)(player->y - (0.5 * player->dy))][(int)player->x \
+			] == 48 || g->map->map[(int)(player->y - (0.5 * player->dy))] \
 			[(int)player->x] == 83)
 			player->y -= player->dy * g->p_speed;
 	}
@@ -105,15 +103,13 @@ void	ft_player_strafe(mlx_t *mlx, t_pos *player, t_game *g)
 	else if (!mlx_is_key_down(mlx, MLX_KEY_Q)
 		&& mlx_is_key_down(mlx, MLX_KEY_E))
 	{
-		if (g->map->map[(int)player->y] \
-			[(int)(player->x - (0.5 * player->dy))] == 48 || \
-			g->map->map[(int)player->y] \
-			[(int)(player->x - (0.5 * player->dy))] == 83)
+		if (g->map->map[(int)player->y][(int)(player->x - (0.5 * player->dy))] \
+	== 48 || g->map->map[(int)player->y][(int)(player->x - (0.5 * player->dy))] \
+	== 83)
 			player->x -= player->dy * g->p_speed;
-		if (g->map->map[(int)(player->y + (0.5 * player->dx))] \
-			[(int)player->x] == 48 || \
-			g->map->map[(int)(player->y + (0.5 * player->dx))] \
-			[(int)player->x] == 83)
+		if (g->map->map[(int)(player->y + (0.5 * player->dx))][(int)player->x] \
+	== 48 || g->map->map[(int)(player->y + (0.5 * player->dx))][(int)player->x] \
+	== 83)
 			player->y += player->dx * g->p_speed;
 	}
 }

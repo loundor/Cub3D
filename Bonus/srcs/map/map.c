@@ -6,11 +6,21 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:54:57 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/17 09:31:28 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/20 15:12:36 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+static void	ft_test_texture(t_game *g)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 6)
+		if (!g->map->texture[i])
+			exit(1 + (0 * ft_error(MISS_TEXTURE)));
+}
 
 static void	ft_test_map(char **map, int max_x, int max_y)
 {
@@ -24,12 +34,12 @@ static void	ft_test_map(char **map, int max_x, int max_y)
 		if (y == 0 || y == max_y - 1)
 		{
 			while (map[y][++x])
-				if (!ft_strchr("1T", map[y][x]))
+				if (!ft_strrchr("1TD|}{PO:LKJ", map[y][x]))
 					exit(ft_error(MAP_ERROR) \
 						+ (0 * ft_free_map((t_map *)ft_get_struct("map"))));
-			continue ;
 		}
-		if (map[y][0] != '1' && map[y][max_x -1] != '1')
+		if (!ft_strrchr("1TD|}{PO:LKJ", map[y][0]) || \
+			!ft_strrchr("1TD|}{PO:LKJ", map[y][max_x -1]))
 			exit(ft_error(MAP_ERROR) \
 						+ (0 * ft_free_map((t_map *)ft_get_struct("map"))));
 	}
@@ -98,5 +108,10 @@ int	ft_import_map(char *file, t_game *g)
 	if (w_map < 3)
 		return (MAP_ERROR);
 	ft_test_map(g->map->map, g->map->size_x, g->map->size_y);
+	if (g->player->positioned == '0' || \
+		(g->player->x <= 0 || g->player->y <= 0) || \
+		(g->player->x >= g->map->size_x || g->player->y >= g->map->size_y))
+		exit(1 + (0 * ft_error(BAD_START)));
+	ft_test_texture(g);
 	return (0);
 }

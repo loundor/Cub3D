@@ -6,13 +6,12 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:54:57 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/20 11:11:16 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:08:40 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-// ADD check if all g->map->texture[x] are a pointer else error and exit!
 static void	ft_test_texture(t_game *g)
 {
 	int	i;

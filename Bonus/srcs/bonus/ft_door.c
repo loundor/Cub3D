@@ -6,55 +6,61 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:02 by tkempf-e          #+#    #+#             */
-/*   Updated: 2023/01/19 18:21:14 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/20 15:03:33 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
+void	ft_check_door2(t_game *g, t_door **door, t_door *bak)
+{
+	if (door[0]->next == NULL && door[0]->prev == NULL)
+	{
+		g->door = NULL;
+		free(door[0]);
+		door[0] = NULL;
+	}
+	else if (door[0]->prev == NULL && door[0]->next != NULL)
+	{
+		g->door = door[0]->next;
+		g->door->prev = NULL;
+		free(door[0]);
+		door[0] = g->door;
+	}
+	else if (door[0]->prev != NULL && door[0]->next != NULL)
+	{
+		bak = door[0];
+		door[0]->prev->next = door[0]->next;
+		door[0]->next->prev = door[0]->prev;
+		door[0] = door[0]->next;
+		free(bak);
+		bak = NULL;
+	}
+}
+
 void	ft_check_door(t_game *g)
 {
-	t_door *door;
+	t_door	*door;
 	t_door	*bak;
 
 	door = g->door;
+	bak = NULL;
 	while (door)
 	{
 		if (((g->time.tv_sec * 1000) + (g->time.tv_usec / 1000)) - \
-			((door->start_at.tv_sec * 1000) + (door->start_at.tv_usec / 1000)) > \
-			door->close_time && \
-			((int)g->player->x != door->x || (int)g->player->y != door->y))
+			((door->start_at.tv_sec * 1000) + (door->start_at.tv_usec / 1000)) \
+			> door->close_time && ((int)g->player->x != door->x || \
+			(int)g->player->y != door->y))
 		{
 			g->map->map[door->y][g->door->x] = 'D';
-			if (door->next == NULL && door->prev == NULL)
-			{
-				g->door = NULL;
-				free(door);
-				door = NULL;
-			}
-			else if (door->prev == NULL && door->next != NULL)
-			{
-				g->door = door->next;
-				g->door->prev = NULL;
-				free(door);
-				door = g->door;				
-			}
-			else if (door->prev != NULL && door->next == NULL)
+			ft_check_door2(g, &door, bak);
+			if (door->prev != NULL && door->next == NULL)
 			{
 				door->prev->next = NULL;
 				free(door);
-				return;
+				return ;
 			}
-			else if (door->prev != NULL && door->next != NULL)
-			{
-				bak = door;
-				door->prev->next = door->next;
-				door->next->prev = door->prev;
-				door = door->next;
-				free(bak);
-				bak = NULL;
-			}
-			continue;
+			continue ;
 		}
 		door = door->next;
 	}
@@ -71,7 +77,7 @@ static void	ft_open_door(int y, int x, t_map *map)
 	new = (t_door *)malloc(sizeof(t_door));
 	if (!new)
 		exit(ft_error(INIT_ALLOC));
-	*new = (t_door){NULL, x, y, {0,0}, 5000, NULL};
+	*new = (t_door){NULL, x, y, {0, 0}, 5000, NULL};
 	gettimeofday(&new->start_at, NULL);
 	if (!g->door)
 	{

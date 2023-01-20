@@ -1,7 +1,7 @@
-NO ./assets/big.xpm
-SO ./assets/one_pixel.xpm
-WE ./assets/rectangle.xpm
-EA ./assets/wall_fantasy4.xpm
+NO ./textures/S1.png
+SO ./textures/S2.png
+WE ./textures/S3.png
+EA ./textures/S4.png
 F 65,103,64
 C 2,11,83
 111111

@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:45:48 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/19 18:21:28 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:09:45 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ enum e_type_err
 	INIT_ALLOC = 0x10,
 	NEX_FILE = 0x20,
 	BAD_COLOR = 0x40,
-	BAD_START = 0x80
+	BAD_START = 0x80,
+	UNK_CARMAP = 0xFF,
+	MISS_TEXTURE = 0xA0
 };
 
 typedef struct s_door
@@ -112,6 +114,14 @@ typedef struct s_game
 	t_door			*door;
 	struct timeval	time;
 }	t_game;
+
+typedef struct s_minipoint
+{
+	int		x;
+	int		y;
+	double	i;
+	double	j;
+}	t_minipoint;
 
 void			ft_sum_ray(t_game *g);
 void			ft_draw(t_game *g);

@@ -1,7 +1,7 @@
-NO ./assets/stone1.xpm
-SO ./assets/stone2.xpm
-WE ./assets/stone3.xpm
-EA ./assets/stone4.xpm
+NO ./textures/S1.png
+SO ./textures/S2.png
+WE ./textures/S3.png
+EA ./textures/S4.png
 F 39,37,35
 C 39,37,35
 111111111111111111111111111111111111111111111111111
