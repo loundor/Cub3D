@@ -6,7 +6,7 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:58:09 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/10 11:26:15 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/20 11:17:29 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,8 @@ static int	ft_putarg_in(char *line, t_map *map, int id)
 		file[i] = 0;
 		while (--i >= 0)
 			file[i] = line[i];
-		if ((!ft_strcmp(&file[ft_strlen(file) - 4], ".png")
-				|| !ft_strcmp(&file[ft_strlen(file) - 4], ".PNG"))
-			&& !ft_delete_texture(map->texture[id]))
+		if ((!ft_strcmp(&file[ft_strlen(file) - 4], ".png") || !ft_strcmp(\
+&file[ft_strlen(file) - 4], ".PNG")) && !ft_delete_texture(map->texture[id]))
 				map->texture[id] = mlx_load_png(file);
 		ft_free_str(file);
 		if (map->texture[id] == NULL)

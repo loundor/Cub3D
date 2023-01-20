@@ -6,13 +6,14 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:42:07 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/10 19:37:00 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/20 11:12:44 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static void	ft_draw_col(mlx_texture_t *texture, int col, int dst_y, t_point point)
+static void	ft_draw_col(mlx_texture_t *texture, int col, int dst_y,
+	t_point point)
 {
 	unsigned int	x;
 	unsigned int	y;
@@ -55,7 +56,7 @@ static void	ft_draw_scaled(t_ray *ray, mlx_texture_t *texture,
 	{
 		while (error >= ray->height && ++y)
 			error -= ray->height;
-		ft_draw_col(texture, col, dst_y, (t_point){x,y});
+		ft_draw_col(texture, col, dst_y, (t_point){x, y});
 		dst_y++;
 		error += texture->width;
 	}	

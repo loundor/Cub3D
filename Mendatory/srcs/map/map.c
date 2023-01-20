@@ -6,23 +6,24 @@
 /*   By: stissera <stissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:54:57 by stissera          #+#    #+#             */
-/*   Updated: 2023/01/19 23:46:52 by stissera         ###   ########.fr       */
+/*   Updated: 2023/01/20 11:11:16 by stissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-
 // ADD check if all g->map->texture[x] are a pointer else error and exit!
-// Probleme when map missing!
-// Check around is all with 1 bonus should ok.
-//no sense map problem..
-// no player souhld ok!
-// ko with ko_spaces
-// ko with ko_spaces_new_lines
-// should ok with ko_wring_char
+static void	ft_test_texture(t_game *g)
+{
+	int	i;
 
-static void ft_test_map(char **map, int max_x, int max_y)
+	i = -1;
+	while (++i < 6)
+		if (!g->map->texture[i])
+			exit(1 + (0 * ft_error(MISS_TEXTURE)));
+}
+
+static void	ft_test_map(char **map, int max_x, int max_y)
 {
 	int	y;
 	int	x;
@@ -37,9 +38,8 @@ static void ft_test_map(char **map, int max_x, int max_y)
 				if (map[y][x] != '1')
 					exit(ft_error(MAP_ERROR) \
 						+ (0 * ft_free_map((t_map *)ft_get_struct("map"))));
-			continue;
 		}
-		if (map[y][0] != '1' && map[y][max_x -1] != '1')
+		if (map[y][0] != '1' || map[y][max_x -1] != '1')
 			exit(ft_error(MAP_ERROR) \
 						+ (0 * ft_free_map((t_map *)ft_get_struct("map"))));
 	}
@@ -108,5 +108,10 @@ int	ft_import_map(char *file, t_game *g)
 	if (w_map < 3)
 		return (MAP_ERROR);
 	ft_test_map(g->map->map, g->map->size_x, g->map->size_y);
+	if (g->player->positioned == '0' || \
+		(g->player->x <= 0 || g->player->y <= 0) || \
+		(g->player->x >= g->map->size_x || g->player->y >= g->map->size_y))
+		exit(1 + (0 * ft_error(BAD_START)));
+	ft_test_texture(g);
 	return (0);
 }
